@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/jump_progress.png" type="Texture" id=1]
+
+[node name="JumpMeter" type="TextureProgress"]
+margin_right = 1024.0
+margin_bottom = 600.0
+max_value = 5.0
+value = 5.0
+texture_progress = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
