@@ -248,7 +248,7 @@ nodes/isWalking/position = Vector2( 400, 180 )
 nodes/jumpPrep/node = SubResource( 48 )
 nodes/jumpPrep/position = Vector2( 560, 260 )
 nodes/output/position = Vector2( 1860, 180 )
-node_connections = [ "output", 0, "isHit", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5" ]
+node_connections = [ "output", 0, "isHit", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5" ]
 
 [sub_resource type="ShaderMaterial" id=50]
 shader = ExtResource( 5 )
@@ -295,7 +295,7 @@ material = SubResource( 50 )
 texture = ExtResource( 1 )
 hframes = 11
 vframes = 9
-frame = 1
+frame = 3
 
 [node name="JumpMeter" parent="." instance=ExtResource( 2 )]
 visible = false

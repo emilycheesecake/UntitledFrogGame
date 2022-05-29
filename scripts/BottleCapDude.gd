@@ -35,12 +35,12 @@ func _on_Trigger_area_entered(area):
 	if "EnemyWall" in area.name:
 		$Sprite.flip_h = !$Sprite.flip_h
 
-func hit():
+func hit(knockback):
 	state = "hit"
 	velocity.x = 0
 	$HitTimer.start()
-	position.y -= knockback / 2
-	position.x += knockback
+	position.y -= knockback.y
+	position.x += knockback.x
 	$AnimationTree.set("parameters/isHit/active", true)
 
 func die():

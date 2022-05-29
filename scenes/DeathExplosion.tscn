@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/Effect8.png" type="Texture" id=1]
+[ext_resource path="res://assets/Effect3.png" type="Texture" id=1]
 [ext_resource path="res://scripts/DeathExplosion.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -13,10 +13,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=2]
@@ -33,11 +33,12 @@ nodes/explode/position = Vector2( 80, 120 )
 node_connections = [ "output", 0, "explode", "explode", 1, "Animation" ]
 
 [node name="DeathExplosion" type="Node2D"]
+visible = false
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-hframes = 4
+hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/explode = SubResource( 1 )

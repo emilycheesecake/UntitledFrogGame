@@ -54,9 +54,9 @@ margin_right = 479.0
 margin_bottom = 403.0
 
 [node name="TextureRect2" type="TextureRect" parent="CenterContainer/VBoxContainer"]
-margin_top = -29.1134
+margin_top = -38.9506
 margin_right = 446.0
-margin_bottom = 221.887
+margin_bottom = 212.049
 texture = ExtResource( 1 )
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
