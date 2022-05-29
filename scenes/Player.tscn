@@ -167,7 +167,7 @@ nodes/isJumping/position = Vector2( 635.449, 278 )
 nodes/isWalking/node = SubResource( 37 )
 nodes/isWalking/position = Vector2( 440, 180 )
 nodes/output/position = Vector2( 1700, 180 )
-node_connections = [ "output", 0, "isAttacking", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isJumping", 0, "isWalking", "isJumping", 1, "Animation 3" ]
+node_connections = [ "output", 0, "isAttacking", "isJumping", 0, "isWalking", "isJumping", 1, "Animation 3", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2" ]
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 50, -50 )
@@ -180,8 +180,8 @@ shape = SubResource( 26 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.25, 0.25 )
-limit_bottom = 64
+zoom = Vector2( 0.5, 0.5 )
+limit_bottom = 100
 smoothing_enabled = true
 
 [node name="JumpTimer" type="Timer" parent="."]
@@ -208,7 +208,7 @@ parameters/isWalking/current = 0
 texture = ExtResource( 1 )
 hframes = 11
 vframes = 9
-frame = 1
+frame = 4
 
 [node name="JumpMeter" parent="." instance=ExtResource( 2 )]
 visible = false

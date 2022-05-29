@@ -1,17 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/soda_healthbar/over.png" type="Texture" id=1]
-[ext_resource path="res://assets/soda_healthbar/progress.png" type="Texture" id=2]
+[ext_resource path="res://assets/healthbar/progress.png" type="Texture" id=1]
 
 [node name="HealthBar" type="TextureProgress"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -256.0
-margin_right = 160.0
-max_value = 120.0
-value = 70.0
-texture_over = ExtResource( 1 )
-texture_progress = ExtResource( 2 )
-fill_mode = 3
-tint_over = Color( 1, 1, 1, 0.462745 )
-nine_patch_stretch = true
+margin_right = 102.0
+margin_bottom = 15.0
+max_value = 6.0
+value = 6.0
+texture_progress = ExtResource( 1 )

@@ -14,7 +14,8 @@ export var speed = 50
 export var gravity = 200.0
 export var jump_height = 200
 export var death_height = 64
-export var health = 100
+export var health = 6
+var max_health = 6
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,7 +68,7 @@ func _physics_process(delta):
 func charge_jump(delta):
 	if !is_jumping and jump_strength < jump_height:
 		velocity.x = 0
-		jump_strength += delta * 100
+		jump_strength += delta * 200
 		$AnimationTree.set("parameters/isWalking/current", 0)    
 		$JumpMeter.visible = true
 		$JumpMeter.value = round(jump_strength / 40)

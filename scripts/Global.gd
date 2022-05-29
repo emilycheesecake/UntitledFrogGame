@@ -19,7 +19,7 @@ func _ready():
 
 func _process(delta):
 	if in_game:
-		$UI/HealthBar.visible = false
+		show_ui()
 
 func clear_scene():
 	for n in $Game.get_children():
@@ -40,3 +40,9 @@ func change_scene(scene):
 			var i = selection_level.instance()
 			player.position = i.get_node("SpawnLocation").position
 			$Game.add_child(i)
+
+func show_ui():
+	$UI/UI_Texture.visible = true
+	
+func hide_ui():
+	$UI/UI_Texture.visible = false
