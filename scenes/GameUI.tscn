@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fonts/Fibberish_32pt_noborder.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/game_ui.png" type="Texture" id=3]
+[ext_resource path="res://scenes/HealthBar.tscn" type="PackedScene" id=4]
+
+[node name="GameUI" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="UI_Texture" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 320.0
+margin_right = 472.0
+margin_bottom = 440.0
+texture = ExtResource( 3 )
+
+[node name="HealthBar" parent="." instance=ExtResource( 4 )]
+margin_left = 122.0
+margin_top = 381.0
+margin_right = 326.0
+margin_bottom = 411.0
+
+[node name="ScoreLabel" type="Label" parent="."]
+margin_left = 107.0
+margin_top = 417.0
+margin_right = 299.0
+margin_bottom = 459.0
+custom_colors/font_color = Color( 0.282353, 0.0705882, 0.0627451, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = " 00000000"
+
+[node name="LifeLabel" type="Label" parent="."]
+anchor_right = 1.05
+anchor_bottom = 1.05
+margin_left = 429.0
+margin_top = 398.0
+margin_right = 429.0
+margin_bottom = 398.0
+custom_colors/font_color = Color( 0.282353, 0.0705882, 0.0627451, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "03"

@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var global = get_node("/root/Global")
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -17,25 +18,25 @@ func _ready():
 	target = Vector2(position.x + distance, position.y)
 
 func _physics_process(delta):
-	if position.x >= target.x - 5 or position.x >= target.x + 5:
-		change_direction()
-	
-	if state == "idle":
-		pass
+	if not global.paused:
+		if $AnimationTree.process_mode == AnimationTree.ANIMATION_PROCESS_MANUAL:
+			$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_IDLE
 		
-	velocity.y += gravity * delta
+		if position.x >= target.x - 5 or position.x >= target.x + 5:
+			change_direction()
 	
-	velocity = move_and_slide(velocity, Vector2(0, -1))
-	$Sprite.flip_h = flip
+		if state == "idle":
+			pass
+		
+		velocity.y += gravity * delta
+	
+		velocity = move_and_slide(velocity, Vector2(0, -1))
+		$Sprite.flip_h = flip
+	else:
+		$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_MANUAL
 
 func change_direction():
-	if flip:
-		target = get_parent().get_node("TriggerB").position
-		get_parent().get_node("TriggerA").monitoring = false
-		flip = false
-	else:
-		target = get_parent().get_node("TriggerA").position
-		flip = true
+	pass
 
 
 func _on_Area2D_area_entered(body):

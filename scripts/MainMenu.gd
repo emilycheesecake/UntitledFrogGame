@@ -15,6 +15,7 @@ func _ready():
 
 func _on_StartButton_pressed():
 	global.change_scene(1)
+	global.show_ui()
 	queue_free()
 
 
