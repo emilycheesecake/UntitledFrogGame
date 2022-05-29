@@ -57,7 +57,7 @@ custom_fonts/font = ExtResource( 3 )
 text = "Press [e] to enter"
 
 [node name="Banner" type="Sprite" parent="."]
-position = Vector2( 0, -14.6671 )
+position = Vector2( 0, -16.0482 )
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

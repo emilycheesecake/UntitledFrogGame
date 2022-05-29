@@ -18,6 +18,8 @@ export var next_scene = 0
 
 
 func _ready():
+	$Label.text = interact_text
+	
 	match(door_color):
 		"blue":
 			$Door.texture = blue_door_tex

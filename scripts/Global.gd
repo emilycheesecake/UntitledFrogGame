@@ -9,6 +9,9 @@ export(PackedScene) var main_menu
 export(PackedScene) var pause_menu
 export(PackedScene) var main_level
 export(PackedScene) var selection_level
+export(PackedScene) var blue_land
+export(PackedScene) var purple_land
+export(PackedScene) var green_land
 export(PackedScene) var player_scene
 
 
@@ -55,6 +58,15 @@ func change_scene(scene):
 			var i = selection_level.instance()
 			player.position = i.get_node("SpawnLocation").position
 			$Game.add_child(i)
+		3: # Blue Land
+			pass
+		4: #Purple Land
+			pass
+		5: #Green Land
+			var i = green_land.instance()
+			player.position = i.get_node("SpawnLocation").position
+			$Game.add_child(i)
+			
 	# Run
 	transition_in()
 

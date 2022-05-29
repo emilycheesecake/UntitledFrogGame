@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Main.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=2]
+
+[node name="GreenLand" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 1
+cell_custom_transform = Transform2D( 8, 0, 0, 8, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 2, 56, 0, 4, 57, 0, 6, 57, 0, 8, 57, 0, 10, 57, 0, 12, 57, 0, 14, 57, 0, 16, 57, 0, 18, 58, 0 )
+
+[node name="SpawnLocation" type="Node2D" parent="."]
+position = Vector2( 44, -14 )
+
+[node name="Door" parent="." instance=ExtResource( 2 )]
+position = Vector2( 32, -20 )
+door_color = "black"
+next_scene = 2

@@ -98,7 +98,6 @@ func jump():
 func attack():
 	$AnimationTree.set("parameters/isAttacking/active", true)
 	can_move = false
-	$AttackTimer.start()
 	
 func die():
 	is_jumping = false
@@ -119,3 +118,8 @@ func death_reset():
 	global.update_life(lives)
 	global.transition_in()
 
+
+
+func _on_Hitbox_body_entered(body):
+	if "Dude" in body.name:
+		body.hit()

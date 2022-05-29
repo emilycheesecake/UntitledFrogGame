@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/FROGLET_16x16_Sprite/pink/PNG/froglet_frog_pink_sheet_all.png" type="Texture" id=1]
 [ext_resource path="res://scenes/JumpMeter.tscn" type="PackedScene" id=2]
@@ -195,7 +195,10 @@ nodes/isWalking/position = Vector2( 400, 180 )
 nodes/jumpPrep/node = SubResource( 48 )
 nodes/jumpPrep/position = Vector2( 560, 260 )
 nodes/output/position = Vector2( 1700, 180 )
-node_connections = [ "output", 0, "isAttacking", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2" ]
+node_connections = [ "output", 0, "isAttacking", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2" ]
+
+[sub_resource type="RectangleShape2D" id=49]
+extents = Vector2( 10.5, 7 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 50, -50 )
@@ -234,7 +237,7 @@ parameters/jumpPrep/current = 0
 texture = ExtResource( 1 )
 hframes = 11
 vframes = 9
-frame = 7
+frame = 2
 
 [node name="JumpMeter" parent="." instance=ExtResource( 2 )]
 visible = false
@@ -242,3 +245,11 @@ margin_left = -25.0
 margin_top = -16.0
 margin_right = 999.0
 margin_bottom = 584.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0.5, 3 )
+shape = SubResource( 49 )
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
