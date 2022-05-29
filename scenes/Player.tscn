@@ -49,6 +49,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, -10 ), Vector2( 0, -20 ), Vector2( 0, -30 ), Vector2( 0, -20 ), Vector2( 0, -10 ), Vector2( 0, 0 ), Vector2( 0, 25 ), Vector2( 0, 100 ), Vector2( 0, 0 ) ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "death_reset"
+} ]
+}
 
 [sub_resource type="Animation" id=27]
 resource_name = "idle"
@@ -181,7 +195,7 @@ nodes/isWalking/position = Vector2( 400, 180 )
 nodes/jumpPrep/node = SubResource( 48 )
 nodes/jumpPrep/position = Vector2( 560, 260 )
 nodes/output/position = Vector2( 1700, 180 )
-node_connections = [ "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "output", 0, "isAttacking", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isDead", 0, "isJumping", "isDead", 1, "Animation 4" ]
+node_connections = [ "output", 0, "isAttacking", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2" ]
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 50, -50 )
@@ -197,9 +211,6 @@ current = true
 zoom = Vector2( 0.5, 0.5 )
 limit_bottom = 100
 smoothing_enabled = true
-
-[node name="JumpTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 44 )
@@ -223,7 +234,7 @@ parameters/jumpPrep/current = 0
 texture = ExtResource( 1 )
 hframes = 11
 vframes = 9
-frame = 3
+frame = 7
 
 [node name="JumpMeter" parent="." instance=ExtResource( 2 )]
 visible = false
@@ -231,13 +242,3 @@ margin_left = -25.0
 margin_top = -16.0
 margin_right = 999.0
 margin_bottom = 584.0
-
-[node name="AttackTimer" type="Timer" parent="."]
-
-[node name="DeathTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

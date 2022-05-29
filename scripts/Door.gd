@@ -17,7 +17,6 @@ export var interact_text = "Exit"
 export var next_scene = 0
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	match(door_color):
 		"blue":
@@ -38,11 +37,6 @@ func _ready():
 		"green":
 			$Banner.texture = green_banner_tex
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 func _input(event):
 	if event.is_action_pressed("interact") and $Label.visible:
 		global.change_scene(next_scene)
@@ -50,7 +44,6 @@ func _input(event):
 func _on_Area2D_body_entered(body):
 	if "Player" in body.get_name():
 		$Label.visible = true
-
 
 func _on_Area2D_body_exited(body):
 	if "Player" in body.get_name():

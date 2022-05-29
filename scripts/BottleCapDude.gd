@@ -2,18 +2,16 @@ extends KinematicBody2D
 
 onready var global = get_node("/root/Global")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var target = Vector2.ZERO
+var velocity = Vector2()
+
 export var flip = false
 export var gravity = 200.0
 export var speed = 20
 export var state = "idle"
 export var distance = 80
-var target = Vector2.ZERO
-var velocity = Vector2()
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	target = Vector2(position.x + distance, position.y)
 
@@ -37,7 +35,6 @@ func _physics_process(delta):
 
 func change_direction():
 	pass
-
 
 func _on_Area2D_area_entered(body):
 	if "TriggerA" in body.name:
