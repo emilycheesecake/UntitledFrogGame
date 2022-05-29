@@ -9,7 +9,7 @@ export var flip = false
 export var gravity = 200.0
 export var speed = 20
 export var state = "idle"
-export var distance = 80
+export var knockback = 40
 
 
 func _ready():
@@ -17,12 +17,13 @@ func _ready():
 	$HitTimer.stop()
 
 func _physics_process(delta):
-	if not global.paused and not stunned:
+	if not global.paused:
 		if $AnimationTree.process_mode == AnimationTree.ANIMATION_PROCESS_MANUAL:
 			$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_IDLE
 	
-		if state == "idle":
-			velocity.x = speed if $Sprite.flip_h else -speed
+		if not stunned:
+			if state == "idle":
+				velocity.x = speed if $Sprite.flip_h else -speed
 		
 		velocity.y += gravity * delta
 	
@@ -35,17 +36,24 @@ func _on_Trigger_area_entered(area):
 		$Sprite.flip_h = !$Sprite.flip_h
 
 func hit():
+	state = "hit"
+	velocity.x = 0
 	$HitTimer.start()
+	position.y -= knockback / 2
+	position.x += knockback
 	$AnimationTree.set("parameters/isHit/active", true)
-	position.y -= 20
-	position.x += 20
-	stunned = true
 
 func die():
-	pass
+	var i = global.death_explosion.instance()
+	i.position = $Sprite.position
+	get_parent().add_child(i)
+	queue_free()
 
 
 func _on_HitTimer_timeout():
-	stunned = false
-	#$Sprite.material.set_shader_param("active", false)
-	$HitTimer.stop()
+	die()
+
+
+func _on_Trigger_body_entered(body):
+	if "Player" in body.name:
+		body.hurt()

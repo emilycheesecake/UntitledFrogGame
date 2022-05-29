@@ -13,6 +13,7 @@ export(PackedScene) var blue_land
 export(PackedScene) var purple_land
 export(PackedScene) var green_land
 export(PackedScene) var player_scene
+export(PackedScene) var death_explosion
 
 
 func _ready():

@@ -7,7 +7,10 @@ var is_jumping = false
 var jump_strength = 0.0
 var start_position = Vector2(50, -50)
 var max_health = 6
+var invulnerable = false
 
+export(PackedScene) var attack_hitbox
+export var attacking = false
 export var can_move = true
 export var is_dead = false
 export var speed = 50
@@ -18,6 +21,7 @@ export var health = 6
 export var lives = 69
 
 func _ready():
+	$InvulnTimer.stop()
 	position = start_position
 
 func _input(event):
@@ -99,6 +103,22 @@ func attack():
 	$AnimationTree.set("parameters/isAttacking/active", true)
 	can_move = false
 	
+func spawn_attack_hitbox():
+	var i = attack_hitbox.instance()
+	i.position = Vector2($Sprite.position.x - 8, $Sprite.position.y) if $Sprite.flip_h else Vector2($Sprite.position.x + 8, $Sprite.position.y)
+	add_child(i)
+	
+func hurt():
+	if not invulnerable and not attacking:
+		if health > 1:
+			health -= 1
+			global.update_health(health)
+			$AnimationTree.set("parameters/isHit/active", true)
+			invulnerable = true
+		else:
+			die()
+		$InvulnTimer.start()
+	
 func die():
 	is_jumping = false
 	$JumpMeter.visible = false
@@ -109,17 +129,19 @@ func die():
 	
 func death_reset():
 	global.transition_out()
+	yield(global.get_node("UI/CircleTransition/AnimationPlayer"), "animation_finished")
 	position = start_position
 	is_dead = false
 	$AnimationTree.set("parameters/isDead/active", false)
 	$Sprite.position.y = 0
+	health = max_health
+	global.update_health(health)
 	# Update lives
 	lives -= 1
 	global.update_life(lives)
 	global.transition_in()
 
-
-
-func _on_Hitbox_body_entered(body):
-	if "Dude" in body.name:
-		body.hit()
+func _on_InvulnTimer_timeout():
+	invulnerable = false
+	$Sprite.material.set_shader_param("active", false)
+	$InvulnTimer.stop()

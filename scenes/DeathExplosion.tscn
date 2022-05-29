@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Effect8.png" type="Texture" id=1]
+[ext_resource path="res://scripts/DeathExplosion.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "explode"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "explode"
+
+[sub_resource type="AnimationNodeOneShot" id=3]
+
+[sub_resource type="AnimationNodeBlendTree" id=4]
+graph_offset = Vector2( -415.337, 43.9578 )
+nodes/Animation/node = SubResource( 2 )
+nodes/Animation/position = Vector2( -112.805, 244.739 )
+nodes/explode/node = SubResource( 3 )
+nodes/explode/position = Vector2( 80, 120 )
+node_connections = [ "output", 0, "explode", "explode", 1, "Animation" ]
+
+[node name="DeathExplosion" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/explode = SubResource( 1 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/explode/active = false
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

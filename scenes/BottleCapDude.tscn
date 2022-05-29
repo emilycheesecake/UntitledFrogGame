@@ -100,7 +100,7 @@ script = ExtResource( 2 )
 material = SubResource( 7 )
 texture = ExtResource( 1 )
 hframes = 11
-frame = 2
+frame = 1
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 2 )
@@ -126,7 +126,6 @@ position = Vector2( -1, 0 )
 shape = SubResource( 5 )
 
 [node name="HitTimer" type="Timer" parent="."]
-wait_time = 2.0
 
 [connection signal="area_entered" from="Trigger" to="." method="_on_Trigger_area_entered"]
 [connection signal="body_entered" from="Trigger" to="." method="_on_Trigger_body_entered"]
