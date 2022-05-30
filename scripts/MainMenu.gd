@@ -4,7 +4,12 @@ onready var global = get_node("/root/Global")
 
 
 func _ready():
-	pass
+	get_node("CRT Shader").visible = global.crt_shader
+	$CenterContainer/VBoxContainer/Settings/Scanline/CheckButton.pressed = global.crt_shader
+
+func _process(delta):
+	global.crt_shader = $CenterContainer/VBoxContainer/Settings/Scanline/CheckButton.pressed
+	get_node("CRT Shader").visible = global.crt_shader
 
 func _on_StartButton_pressed():
 	global.change_scene(1)
@@ -12,4 +17,15 @@ func _on_StartButton_pressed():
 	queue_free()
 
 func _on_QuitButton_pressed():
-	get_tree().quit()
+	global.crt_shader = !global.crt_shader
+	get_node("CRT Shader").visible = global.crt_shader
+
+
+func _on_SettingsButton_pressed():
+	$CenterContainer/VBoxContainer/Main.visible = false
+	$CenterContainer/VBoxContainer/Settings.visible = true
+
+
+func _on_SettingsBackButton_pressed():
+	$CenterContainer/VBoxContainer/Settings.visible = false
+	$CenterContainer/VBoxContainer/Main.visible = true

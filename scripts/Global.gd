@@ -2,6 +2,7 @@ extends Node2D
 
 var in_game = false
 var paused = false
+var crt_shader = true
 var current_level = 1
 var player
 
@@ -17,6 +18,7 @@ export(PackedScene) var death_explosion
 
 
 func _ready():
+	get_node("UI/CRT Shader").visible = crt_shader
 	update_score(69420)
 	update_life(69)
 
@@ -30,7 +32,8 @@ func _input(event):
 		paused = !paused
 
 func _process(delta):
-	pass
+	if get_node("UI/CRT Shader").visible != crt_shader:
+		get_node("UI/CRT Shader").visible = crt_shader
 
 func clear_scene():
 	for n in $Game.get_children():
@@ -99,4 +102,3 @@ func transition_in():
 	
 func transition_out():
 	$UI/CircleTransition.transition_out()
-	
