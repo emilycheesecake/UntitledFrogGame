@@ -10,6 +10,7 @@ export var gravity = 200.0
 export var speed = 20
 export var state = "idle"
 export var knockback = 40
+export var point_value = 450
 
 
 func _ready():
@@ -47,6 +48,7 @@ func die():
 	var i = global.death_explosion.instance()
 	i.position = $Sprite.position
 	get_parent().add_child(i)
+	global.update_score(point_value)
 	queue_free()
 
 

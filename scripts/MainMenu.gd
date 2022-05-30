@@ -12,6 +12,7 @@ func _process(delta):
 	get_node("CRT Shader").visible = global.crt_shader
 
 func _on_StartButton_pressed():
+	global.apply_settings()
 	global.change_scene(1)
 	yield(global.get_node("UI/CircleTransition/AnimationPlayer"), "animation_finished")
 	queue_free()

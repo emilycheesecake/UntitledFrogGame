@@ -15,6 +15,7 @@ export var door_color = "blue"
 export var banner_color = "blue"
 export var interact_text = "Exit"
 export var next_scene = 0
+export var exit_spawn = Vector2.ZERO
 
 
 func _ready():
@@ -30,6 +31,8 @@ func _ready():
 		"black":
 			$Door.texture = black_door_tex
 			$Banner.visible = false
+			# Move the door label down in the absence of banner
+			$Label.rect_position.y = $Banner.position.y - 4
 	
 	match(banner_color):
 		"blue":
@@ -41,6 +44,8 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("interact") and $Label.visible:
+		if door_color == "black":
+			global.exit_spawn = exit_spawn
 		global.change_scene(next_scene)
 
 func _on_Area2D_body_entered(body):

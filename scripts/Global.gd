@@ -5,6 +5,7 @@ var paused = false
 var crt_shader = true
 var current_level = 1
 var player
+var exit_spawn = Vector2.ZERO
 
 export(PackedScene) var main_menu
 export(PackedScene) var pause_menu
@@ -18,9 +19,7 @@ export(PackedScene) var death_explosion
 
 
 func _ready():
-	get_node("UI/CRT Shader").visible = crt_shader
-	update_score(69420)
-	update_life(69)
+	pass
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -32,6 +31,9 @@ func _input(event):
 		paused = !paused
 
 func _process(delta):
+	pass
+
+func apply_settings():
 	if get_node("UI/CRT Shader").visible != crt_shader:
 		get_node("UI/CRT Shader").visible = crt_shader
 
@@ -44,34 +46,37 @@ func change_scene(scene):
 	transition_out()
 	yield($UI/CircleTransition/AnimationPlayer, "animation_finished")
 	
+	# Spawn the player in if it has not
 	if !get_node_or_null("/root/Global/Player"):
 		start_game()
-	
+		
 	clear_scene()
+	var i # The new level instance
 	match(scene):
-		0: # Main Menu
-			for c in $UI/GameUI.get_children():
-				c.visible = false
-			var i = main_menu.instance()
-			$Game.add_child(i)
 		1: # Main Level
-			var i = main_level.instance()
-			player.position = i.get_node("SpawnLocation").position
-			$Game.add_child(i)
+			i = main_level.instance()
 		2: # Selection Room
-			var i = selection_level.instance()
-			player.position = i.get_node("SpawnLocation").position
-			$Game.add_child(i)
+			i = selection_level.instance()
 		3: # Blue Land
-			pass
+			i = blue_land.instance()
 		4: #Purple Land
-			pass
+			i = purple_land.instance()
 		5: #Green Land
-			var i = green_land.instance()
-			player.position = i.get_node("SpawnLocation").position
-			$Game.add_child(i)
-			
-	# Run
+			i = green_land.instance()
+	
+	# Changing player position based on type of spawn
+	if exit_spawn != Vector2.ZERO:
+		player.position = exit_spawn
+		exit_spawn = Vector2.ZERO
+	else:
+		player.position = i.get_node("SpawnLocation").position
+	
+	# Updating camera bounds
+	if i.get_node_or_null("CameraCeiling"):
+		player.get_node("Camera2D").limit_top = i.get_node("CameraCeiling").position.y
+	
+	# Adding new level scene
+	$Game.add_child(i)
 	transition_in()
 
 func start_game():
@@ -90,9 +95,10 @@ func hide_ui():
 
 func update_health(health):
 	$UI/GameUI/HealthBar.value = health
-	
+
 func update_score(score):
-	$UI/GameUI/ScoreLabel.text = "%08d" % [score]
+	player.score += score
+	$UI/GameUI/ScoreLabel.text = "%08d" % [player.score]
 	
 func update_life(life):
 	$UI/GameUI/LifeLabel.text = "%02d" % [life]

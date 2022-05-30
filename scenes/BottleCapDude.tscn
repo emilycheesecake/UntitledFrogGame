@@ -2,11 +2,14 @@
 
 [ext_resource path="res://assets/Bottle_Cap_Dude.png" type="Texture" id=1]
 [ext_resource path="res://scripts/BottleCapDude.gd" type="Script" id=2]
-[ext_resource path="res://assets/shaders/HitFlash.tres" type="Shader" id=3]
+[ext_resource path="res://shaders/HitFlash.tres" type="Shader" id=3]
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 3 )
-shader_param/active = true
+shader_param/active = false
+shader_param/red = 1.0
+shader_param/green = 0.412
+shader_param/blue = 0.38
 
 [sub_resource type="AnimationNodeAnimation" id=9]
 animation = "hit"
@@ -34,7 +37,7 @@ nodes/enemyState/position = Vector2( 660, 60 )
 nodes/isHit/node = SubResource( 11 )
 nodes/isHit/position = Vector2( 1060, 100 )
 nodes/output/position = Vector2( 1300, 140 )
-node_connections = [ "output", 0, "isHit", "isHit", 0, "enemyState", "isHit", 1, "Animation 2", "enemyState", 0, "Animation" ]
+node_connections = [ "output", 0, "isHit", "enemyState", 0, "Animation", "isHit", 0, "enemyState", "isHit", 1, "Animation 2" ]
 
 [sub_resource type="Animation" id=8]
 resource_name = "hit"

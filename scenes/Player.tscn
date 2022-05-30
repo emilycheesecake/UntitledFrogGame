@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/JumpMeter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/AttackHitbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=4]
-[ext_resource path="res://assets/shaders/HitFlash.tres" type="Shader" id=5]
+[ext_resource path="res://shaders/HitFlash.tres" type="Shader" id=5]
 
 [sub_resource type="RectangleShape2D" id=26]
 extents = Vector2( 6.5, 5 )
@@ -220,7 +220,7 @@ input_1/name = "isJump"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=33]
-graph_offset = Vector2( 245.103, 165.518 )
+graph_offset = Vector2( -409.897, 126.518 )
 nodes/Animation/node = SubResource( 32 )
 nodes/Animation/position = Vector2( 220, 140 )
 "nodes/Animation 2/node" = SubResource( 34 )
@@ -248,17 +248,20 @@ nodes/isWalking/position = Vector2( 400, 180 )
 nodes/jumpPrep/node = SubResource( 48 )
 nodes/jumpPrep/position = Vector2( 560, 260 )
 nodes/output/position = Vector2( 1860, 180 )
-node_connections = [ "output", 0, "isHit", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5" ]
+node_connections = [ "output", 0, "isHit", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isDead", 0, "isJumping", "isDead", 1, "Animation 4" ]
 
 [sub_resource type="ShaderMaterial" id=50]
 shader = ExtResource( 5 )
 shader_param/active = false
+shader_param/red = 1.0
+shader_param/green = 0.412
+shader_param/blue = 0.38
 
 [node name="Player" type="KinematicBody2D"]
 z_index = 2
+collision_mask = 5
 script = ExtResource( 4 )
 attack_hitbox = ExtResource( 3 )
-attacking = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, 3 )
@@ -295,7 +298,7 @@ material = SubResource( 50 )
 texture = ExtResource( 1 )
 hframes = 11
 vframes = 9
-frame = 3
+frame = 2
 
 [node name="JumpMeter" parent="." instance=ExtResource( 2 )]
 visible = false

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/shaders/CRT_mat.tres" type="Material" id=1]
+[ext_resource path="res://shaders/CRT_mat.tres" type="Material" id=1]
 
 [node name="CRT Shader" type="ColorRect"]
 material = ExtResource( 1 )
