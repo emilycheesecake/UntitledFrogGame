@@ -37,9 +37,8 @@ func _input(event):
 			$AudioStreamPlayer.stream = hop_sound
 			$AudioStreamPlayer.play()
 			jump()
-			$JumpMeter.visible = false
 		if event.is_action_pressed("attack"):
-			attack()
+			start_attack()
 
 func _physics_process(delta):
 	if not global.paused:
@@ -63,9 +62,6 @@ func _physics_process(delta):
 				# Change animation to idle if no horizontal movement and on ground
 				if is_on_floor():
 					$AnimationTree.set("parameters/isWalking/current", 0)
-			
-			if position.y > death_height:
-				die()
 				
 			if is_jumping:
 				if is_on_floor():
@@ -94,9 +90,8 @@ func charge_jump(delta):
 		$AnimationTree.set("parameters/jumpPrep/current", 1)
 		velocity.x /= 2
 		jump_strength += delta * 200 # Speed that jump charges
-		$AnimationTree.set("parameters/isWalking/current", 0)    
-		$JumpMeter.visible = true
-		$JumpMeter.value = round(jump_strength / 40)
+		$AnimationTree.set("parameters/isWalking/current", 0) 
+		global.update_jump_strength(jump_strength)
 	# Jump automatically when jump meter fills
 	if jump_strength >= jump_height:
 		#Sound Effect
@@ -111,7 +106,7 @@ func jump():
 		$AnimationTree.set("parameters/jumpPrep/current", 0)
 		$AnimationTree.set("parameters/isJumping/active", true)
 		jump_strength = 0.0
-		$JumpMeter.visible = false
+		global.update_jump_strength(jump_strength)
 func start_attack():
 	$AnimationTree.set("parameters/isAttacking/active", true)
 
@@ -142,7 +137,7 @@ func clear_tongue_points():
 	$Tongue.clear_points()
 
 func hurt():
-	if not invulnerable and not attacking:
+	if not invulnerable:
 		if health > 1:
 			health -= 1
 			global.update_health(health)
@@ -153,14 +148,12 @@ func hurt():
 		$InvulnTimer.start()
 	
 func die():
+	velocity = Vector2.ZERO
+	is_dead = true
 	global.stop_music()
 	$AudioStreamPlayer.stream = death_sound
 	$AudioStreamPlayer.play()
 	is_jumping = false
-	$JumpMeter.visible = false
-	is_dead = true
-	velocity = Vector2.ZERO
-	position.y = death_height - 16
 	$AnimationTree.set("parameters/isDead/active", true)
 	
 func death_reset():
@@ -190,6 +183,11 @@ func reset():
 	global.update_score(score)
 	health = max_health
 	global.update_health(health)
+
+func update_health(amount):
+	if health < max_health:
+		health += amount
+		global.update_health(health)
 
 func _on_InvulnTimer_timeout():
 	invulnerable = false

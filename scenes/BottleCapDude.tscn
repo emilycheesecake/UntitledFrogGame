@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 3 )
-shader_param/active = false
+shader_param/active = true
 shader_param/red = 1.0
 shader_param/green = 0.412
 shader_param/blue = 0.38
@@ -54,6 +54,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ true, false, true, false, true, true, true, false, true, false, true, false, true, false, false, true, true, true, false, true, true ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.95 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "die"
+} ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "walk"
@@ -75,8 +89,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 7, 8 )
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 9, 8 )
+[sub_resource type="RectangleShape2D" id=12]
 
 [node name="BottleCapDude" type="KinematicBody2D"]
 z_index = 2
@@ -88,7 +101,7 @@ script = ExtResource( 2 )
 material = SubResource( 7 )
 texture = ExtResource( 1 )
 hframes = 11
-frame = 3
+frame = 2
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 2 )
@@ -105,18 +118,14 @@ anims/walk = SubResource( 3 )
 position = Vector2( -1, 0 )
 shape = SubResource( 4 )
 
-[node name="Trigger" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 32769
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
-position = Vector2( -1, 0 )
-shape = SubResource( 5 )
-
-[node name="HitTimer" type="Timer" parent="."]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[connection signal="area_entered" from="Trigger" to="." method="_on_Trigger_area_entered"]
-[connection signal="body_entered" from="Trigger" to="." method="_on_Trigger_body_entered"]
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -1, 0 )
+shape = SubResource( 12 )
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

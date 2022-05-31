@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://scenes/JumpMeter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/Fibberish_32pt_noborder.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/game_ui.png" type="Texture" id=3]
 [ext_resource path="res://scenes/HealthBar.tscn" type="PackedScene" id=4]
@@ -46,3 +47,11 @@ margin_bottom = 398.0
 custom_colors/font_color = Color( 0.0588235, 0.443137, 0.45098, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "03"
+
+[node name="JumpMeter" parent="." instance=ExtResource( 1 )]
+anchor_left = 8.975
+anchor_top = 9.25
+anchor_right = 12.15
+anchor_bottom = 11.425
+margin_right = -3.8147e-06
+margin_bottom = 0.0

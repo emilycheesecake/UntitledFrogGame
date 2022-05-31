@@ -51,3 +51,6 @@ next_scene = 3
 
 [node name="CameraCeiling" type="Node2D" parent="."]
 position = Vector2( 256, -256 )
+
+[node name="CameraFloor" type="Node2D" parent="."]
+position = Vector2( 0, 64 )

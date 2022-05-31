@@ -3,7 +3,7 @@ extends Node2D
 var in_game = false
 var paused = false
 var crt_shader = true
-var music = false
+var music = true
 var current_level = 1
 var player
 var exit_spawn = Vector2.ZERO
@@ -28,7 +28,7 @@ export(PackedScene) var death_explosion
 
 
 func _ready():
-	pass
+	randomize()
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -109,6 +109,14 @@ func change_scene(scene):
 	# Updating camera bounds
 	if i.get_node_or_null("CameraCeiling"):
 		player.get_node("Camera2D").limit_top = i.get_node("CameraCeiling").position.y
+	else:
+		player.get_node("Camera2D").limit_top = -10000000
+		
+	if i.get_node_or_null("CameraFloor"):
+		# Needed to mess with the position of the CameraFloor to get desired effect for some reason?
+		player.get_node("Camera2D").limit_bottom = i.get_node("CameraFloor").position.y + 50
+	else:
+		player.get_node("Camera2D").limit_bottom = 10000000
 	
 	# Adding new level scene
 	$Game.add_child(i)
@@ -137,7 +145,10 @@ func update_score(score):
 	
 func update_life(life):
 	$UI/GameUI/LifeLabel.text = "%02d" % [life]
-	
+
+func update_jump_strength(strength):
+	$UI/GameUI/JumpMeter.value = strength
+
 func transition_in():
 	$UI/CircleTransition.transition_in()
 	

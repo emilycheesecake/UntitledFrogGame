@@ -14,14 +14,16 @@
 
         body {
             align-content: center;
+            background-color: aquamarine;
             background-image: url("bg.png");
             background-repeat: repeat;
             font-family: Fibberish;
+            font-size: 16pt;
             color: black;
         }
 
         canvas {
-            border: 4px solid #fcfcfc;
+            border: 4px solid #0f7173;
             padding: 0;
             margin: auto;
             display: block;
@@ -30,6 +32,8 @@
             bottom: 0;
             left: 0;
             right: 0;
+            width: 512px;
+            height: 480px;
         }
 
         .logo {
@@ -43,44 +47,65 @@
             height: 125px;
         }
 
-        .instructions {
-            padding-top: 100vh;
-        }
-
         .card {
-            min-width: 600px;
-            background-color: yellow;
+            padding-top: 5px;
+            padding-bottom: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            max-width: 550px;
+            min-height: 100px;
+            border-radius: 3px;
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            background-color: #fcfcfc;
         }
     </style>
 
-    <body style="background-color: #fcfcfc;">
+    <body>
         <img class="logo" src="sodazonelogo.png" style="margin-left:auto; margin-right:auto;"/>
         <br/>
-        <canvas id="canvas" width="512px" height="480px" style="width: 512px;height: 480px;margin-left:auto; margin-right:auto"></canvas>
+        <canvas id="canvas" width="512px" height="480px"></canvas>
         <script src="$GODOT_URL"></script>
         <script>
             var engine = new Engine($GODOT_CONFIG);
             engine.startGame();
         </script>
 
-        <center id="instructions">
-            <div id="card">
+        <center>
+            <div class="card">
                 <h1>About</h1>
                 You are froggy! On a quest to defeat the soda lords (or some shit).
             </div>
-            <h1>Controls</h1>
-            A/D   - Left/Right <br/>
-            Space - Charge Jump <br/>
-            F     - Attack
-            <h1>Credits</h1>
-            <h3>Wonderful asset artists from itch.io</h3>
-            <ul>
-                <li>SciGho</li>
-                <li>nathan scott</li>
-                <li>Balloon Cart</li>
-                <li>LukasLundin</li>
-            </ul>
+            
+            <div class="card">
+                <h1>Controls</h1>
+                A/D   - Left/Right <br/>
+                Space - Charge Jump <br/>
+                F     - Attack
+            </div>
+            
+            <div class="card">
+                <h1>Credits</h1>
+                <h3>Wonderful asset artists</h3>
+                <br>
+                itch.io
+                <ul>
+                    <li>SciGho</li>
+                    <li>nathan scott</li>
+                    <li>Balloon Cart</li>
+                    <li>LukasLundin</li>
+                    <li>Retrocade Media</li>
+                    <li>untiedgames</li>
+                </ul>
+                <br>
+                opengameart.org
+                <ul>
+                    <li>FoxSynergy</li>
+                    <li>bart</li>
+                    <li>PlayOnLoop</li>
+                    <li>Gumichan01</li>
+                    <li>OwlishMedia</li>
+                </ul>
+            </div>
         </center>
     </body>
 </html>

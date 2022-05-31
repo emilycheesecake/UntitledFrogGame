@@ -1,11 +1,8 @@
-extends KinematicBody2D
-
-onready var global = get_node("/root/Global")
+extends "res://scripts/Enemy.gd"
 
 export var pace_distance = 20
 export var speed = 10
 export var knockback = 80
-export var point_value = 250
 
 var velocity = Vector2.ZERO
 var initial_position
@@ -16,6 +13,8 @@ var moving_to = "a"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Set point value
+	point_value = 250
 	$AnimationTree.set("parameters/state", 0)
 	initial_position = position
 	point_a = Vector2(initial_position.x - pace_distance, initial_position.y)
@@ -65,8 +64,4 @@ func _on_Hitbox_body_entered(body):
 
 
 func _on_DeathTimer_timeout():
-	global.update_score(point_value)
-	var i = global.death_explosion.instance()
-	i.position = position
-	get_parent().add_child(i)
-	queue_free()
+	die()
