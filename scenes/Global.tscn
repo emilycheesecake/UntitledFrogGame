@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI.tscn" type="PackedScene" id=2]
@@ -12,13 +12,17 @@
 [ext_resource path="res://scenes/PauseMenu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/PurpleLand.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/DeathExplosion.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/GameOver.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/BlueLand.tscn" type="PackedScene" id=14]
 
 [node name="Global" type="Node2D"]
 script = ExtResource( 1 )
 main_menu = ExtResource( 6 )
 pause_menu = ExtResource( 10 )
+game_over_menu = ExtResource( 13 )
 main_level = ExtResource( 4 )
 selection_level = ExtResource( 3 )
+blue_land = ExtResource( 14 )
 purple_land = ExtResource( 11 )
 green_land = ExtResource( 8 )
 player_scene = ExtResource( 5 )
@@ -31,6 +35,8 @@ death_explosion = ExtResource( 12 )
 [node name="GameUI" parent="UI" instance=ExtResource( 2 )]
 visible = false
 
-[node name="CRT Shader" parent="UI" instance=ExtResource( 9 )]
+[node name="CRTShader" parent="UI" instance=ExtResource( 9 )]
 
 [node name="Game" type="Node2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

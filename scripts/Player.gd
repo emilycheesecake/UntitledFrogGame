@@ -9,6 +9,10 @@ var start_position = Vector2(50, -50)
 var max_health = 6
 var invulnerable = false
 var score = 0
+var hop_sound = preload("res://assets/sounds/hop.wav")
+var jump_sound = preload("res://assets/sounds/jump.wav")
+var attack_sound = preload("res://assets/sounds/slap.wav")
+var death_sound = preload("res://assets/sounds/wobbledown.wav")
 
 export(PackedScene) var attack_hitbox
 export var attacking = false
@@ -29,6 +33,9 @@ func _input(event):
 	if not global.paused:
 		# Jump when action is released
 		if event.is_action_released("jump") and is_on_floor():
+			# Small jump sound effect
+			$AudioStreamPlayer.stream = hop_sound
+			$AudioStreamPlayer.play()
 			jump()
 			$JumpMeter.visible = false
 		if event.is_action_pressed("attack"):
@@ -72,6 +79,8 @@ func _physics_process(delta):
 					charge_jump(delta)
 				$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_IDLE
 			
+			
+			
 			# Update health UI
 			global.update_health(health)
 			velocity = move_and_slide(velocity, Vector2(0, -1))
@@ -90,6 +99,9 @@ func charge_jump(delta):
 		$JumpMeter.value = round(jump_strength / 40)
 	# Jump automatically when jump meter fills
 	if jump_strength >= jump_height:
+		#Sound Effect
+		$AudioStreamPlayer.stream = jump_sound
+		$AudioStreamPlayer.play()
 		jump()
 
 func jump():
@@ -100,16 +112,35 @@ func jump():
 		$AnimationTree.set("parameters/isJumping/active", true)
 		jump_strength = 0.0
 		$JumpMeter.visible = false
+func start_attack():
+	$AnimationTree.set("parameters/isAttacking/active", true)
 
 func attack():
-	$AnimationTree.set("parameters/isAttacking/active", true)
-	can_move = false
-	
+	var closest_dude
+	for b in $AttackRange.get_overlapping_bodies():
+		if "Dude" in b.name:
+			if !closest_dude:
+				closest_dude = b
+			if position.distance_to(b.position) < position.distance_to(closest_dude.position):
+				closest_dude = b
+			b.hit(Vector2(0, 0))
+	$Tongue.clear_points()
+	if closest_dude != null:
+		# Sound Effect
+		$AudioStreamPlayer.stream = attack_sound
+		$AudioStreamPlayer.play()
+		$Tongue.add_point($Sprite.position)
+		$Tongue.add_point($Tongue.to_local(closest_dude.position))
+		$TongueTimer.start()
+
 func spawn_attack_hitbox():
 	var i = attack_hitbox.instance()
 	i.position = Vector2($Sprite.position.x - 8, $Sprite.position.y) if $Sprite.flip_h else Vector2($Sprite.position.x + 8, $Sprite.position.y)
 	add_child(i)
-	
+
+func clear_tongue_points():
+	$Tongue.clear_points()
+
 func hurt():
 	if not invulnerable and not attacking:
 		if health > 1:
@@ -122,6 +153,9 @@ func hurt():
 		$InvulnTimer.start()
 	
 func die():
+	global.stop_music()
+	$AudioStreamPlayer.stream = death_sound
+	$AudioStreamPlayer.play()
 	is_jumping = false
 	$JumpMeter.visible = false
 	is_dead = true
@@ -130,6 +164,9 @@ func die():
 	$AnimationTree.set("parameters/isDead/active", true)
 	
 func death_reset():
+	if lives <= 1:
+		global.game_over()
+	
 	global.transition_out()
 	yield(global.get_node("UI/CircleTransition/AnimationPlayer"), "animation_finished")
 	position = start_position
@@ -141,9 +178,25 @@ func death_reset():
 	# Update lives
 	lives -= 1
 	global.update_life(lives)
+	if global.music:
+		global.start_music()
 	global.transition_in()
+
+func reset():
+	position = Vector2(0, -1000)
+	lives = 3
+	global.update_life(lives)
+	score = 0
+	global.update_score(score)
+	health = max_health
+	global.update_health(health)
 
 func _on_InvulnTimer_timeout():
 	invulnerable = false
 	$Sprite.material.set_shader_param("active", false)
 	$InvulnTimer.stop()
+
+
+func _on_TongueTimer_timeout():
+	clear_tongue_points()
+	$TongueTimer.stop()

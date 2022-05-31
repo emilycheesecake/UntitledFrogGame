@@ -46,7 +46,7 @@ func hit(knockback):
 
 func die():
 	var i = global.death_explosion.instance()
-	i.position = $Sprite.position
+	i.position = position
 	get_parent().add_child(i)
 	global.update_score(point_value)
 	queue_free()

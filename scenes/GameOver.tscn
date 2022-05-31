@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/fonts/Fibberish_32pt.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/GameOver.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "gameover"
+length = 6.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 4.9, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "reset"
+}, {
+"args": [  ],
+"method": "die"
+} ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "gameover"
+
+[sub_resource type="AnimationNodeBlendTree" id=2]
+graph_offset = Vector2( -180, 58 )
+nodes/Animation/node = SubResource( 3 )
+nodes/Animation/position = Vector2( 20, 140 )
+node_connections = [ "output", 0, "Animation" ]
+
+[node name="GameOver" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="CenterContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 187.0
+margin_top = 226.0
+margin_right = 325.0
+margin_bottom = 254.0
+custom_fonts/font = ExtResource( 1 )
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/gameover = SubResource( 1 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 2 )
+anim_player = NodePath("../AnimationPlayer")
+active = true

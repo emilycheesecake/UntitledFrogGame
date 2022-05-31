@@ -66,4 +66,7 @@ func _on_Hitbox_body_entered(body):
 
 func _on_DeathTimer_timeout():
 	global.update_score(point_value)
+	var i = global.death_explosion.instance()
+	i.position = position
+	get_parent().add_child(i)
 	queue_free()
