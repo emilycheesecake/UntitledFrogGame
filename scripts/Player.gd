@@ -4,6 +4,8 @@ onready var global = get_node("/root/Global")
 
 var velocity = Vector2.ZERO
 var is_jumping = false
+var can_wall_jump = true
+var on_wall = false
 var jump_strength = 0.0
 var start_position = Vector2(50, -50)
 var max_health = 6
@@ -32,7 +34,7 @@ func _ready():
 func _input(event):
 	if not global.paused:
 		# Jump when action is released
-		if event.is_action_released("jump") and is_on_floor():
+		if event.is_action_released("jump") and (is_on_floor() or is_touching_wall()):
 			# Small jump sound effect
 			$AudioStreamPlayer.stream = hop_sound
 			$AudioStreamPlayer.play()
@@ -50,11 +52,13 @@ func _physics_process(delta):
 			if Input.is_action_pressed("move_right"):
 				velocity.x = speed
 				$Sprite.flip_h = false
+				$WallJumpTrigger.position.x = position.x - 5
 				if not is_jumping:
 					$AnimationTree.set("parameters/isWalking/current", 1)
 			elif Input.is_action_pressed("move_left"):
 				velocity.x = -speed
 				$Sprite.flip_h = true
+				$WallJumpTrigger.position.x = position.x + 5
 				if not is_jumping:
 					$AnimationTree.set("parameters/isWalking/current", 1)
 			else:
@@ -62,21 +66,30 @@ func _physics_process(delta):
 				# Change animation to idle if no horizontal movement and on ground
 				if is_on_floor():
 					$AnimationTree.set("parameters/isWalking/current", 0)
-				
-			if is_jumping:
-				if is_on_floor():
-					is_jumping = false # Reset after player touches ground after jumping
-				else:
-					$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_MANUAL
-					$Sprite.frame = 17
-			elif is_on_floor():
+			
+			if is_on_floor() and is_jumping and !can_wall_jump:
+				can_wall_jump = true
+			
+			if is_touching_wall() and can_wall_jump:
+				if Input.is_action_pressed("jump"):
+					jump_strength = jump_height * 4
+					jump()
+					velocity.x += 16 if not $Sprite.flip_h else -16
+					can_wall_jump = false
+			
+			if is_on_floor():
+				can_wall_jump = false
 				# Charge jump when held
 				if Input.is_action_pressed("jump"):
 					charge_jump(delta)
+					
+			if (is_on_floor() or is_touching_wall()):
+				is_jumping = false
 				$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_IDLE
-			
-			
-			
+			else:
+				jump_strength = 0
+				global.update_jump_strength(jump_strength)
+				
 			# Update health UI
 			global.update_health(health)
 			velocity = move_and_slide(velocity, Vector2(0, -1))
@@ -100,13 +113,20 @@ func charge_jump(delta):
 		jump()
 
 func jump():
-	if !is_jumping and !is_dead:
-		velocity.y = -jump_strength
-		is_jumping = true
+	if !is_dead:
+		if is_on_floor():
+			velocity.y = -jump_strength
+		elif is_touching_wall():
+			print("walljump attempts")
+			velocity.y = -jump_strength * 4
 		$AnimationTree.set("parameters/jumpPrep/current", 0)
 		$AnimationTree.set("parameters/isJumping/active", true)
+		is_jumping = true
 		jump_strength = 0.0
 		global.update_jump_strength(jump_strength)
+		$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_MANUAL
+		$Sprite.frame = 17
+
 func start_attack():
 	$AnimationTree.set("parameters/isAttacking/active", true)
 
@@ -189,6 +209,9 @@ func update_health(amount):
 		health += amount
 		global.update_health(health)
 
+func is_touching_wall() -> bool:
+	return is_on_wall() or on_wall
+
 func _on_InvulnTimer_timeout():
 	invulnerable = false
 	$Sprite.material.set_shader_param("active", false)
@@ -198,3 +221,14 @@ func _on_InvulnTimer_timeout():
 func _on_TongueTimer_timeout():
 	clear_tongue_points()
 	$TongueTimer.stop()
+
+
+func _on_WallJumpTrigger_body_entered(body):
+	if "Tilemap" in body.name and not is_on_floor():
+		print("wall jump trigger")
+		on_wall = true
+
+
+func _on_WallJumpTrigger_body_exited(body):
+	if "Tilemap" in body.name and not is_on_floor():
+		on_wall = false
