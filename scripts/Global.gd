@@ -3,7 +3,7 @@ extends Node2D
 var in_game = false
 var paused = false
 var crt_shader = true
-var music = true
+var music = false
 var current_level = 1
 var player
 var exit_spawn = Vector2.ZERO
