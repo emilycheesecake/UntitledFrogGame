@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://assets/FROGLET_16x16_Sprite/pink/PNG/froglet_frog_pink_sheet_all.png" type="Texture" id=1]
+[ext_resource path="res://assets/froglet/pink/PNG/froglet_frog_pink_sheet_all.png" type="Texture" id=1]
 [ext_resource path="res://scenes/AttackHitbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=4]
 [ext_resource path="res://shaders/HitFlash.tres" type="Shader" id=5]
@@ -250,7 +250,7 @@ nodes/isWalking/position = Vector2( 400, 180 )
 nodes/jumpPrep/node = SubResource( 48 )
 nodes/jumpPrep/position = Vector2( 560, 260 )
 nodes/output/position = Vector2( 1860, 180 )
-node_connections = [ "output", 0, "isHit", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2" ]
+node_connections = [ "output", 0, "isHit", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2" ]
 
 [sub_resource type="ShaderMaterial" id=50]
 shader = ExtResource( 5 )
@@ -259,8 +259,9 @@ shader_param/red = 1.0
 shader_param/green = 0.412
 shader_param/blue = 0.38
 
-[sub_resource type="CircleShape2D" id=54]
-radius = 6.0
+[sub_resource type="CapsuleShape2D" id=54]
+radius = 5.0
+height = 16.0
 
 [sub_resource type="CircleShape2D" id=53]
 radius = 78.0256
@@ -314,14 +315,16 @@ material = SubResource( 50 )
 texture = ExtResource( 1 )
 hframes = 11
 vframes = 9
-frame = 1
+frame = 3
 
 [node name="InvulnTimer" type="Timer" parent="."]
 
 [node name="WallJumpTrigger" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpTrigger"]
 position = Vector2( 0, 3 )
+rotation = 1.5708
 shape = SubResource( 54 )
 
 [node name="AttackRange" type="Area2D" parent="."]

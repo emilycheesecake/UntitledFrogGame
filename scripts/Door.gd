@@ -26,8 +26,16 @@ func _ready():
 			$Door.texture = blue_door_tex
 		"purple":
 			$Door.texture = purple_door_tex
+			if not global.unlocked_grape:
+				$Label.text = "Locked"
+				$Banner.visible = false
+				$Label.rect_position.y = $Banner.position.y - 4
 		"green":
 			$Door.texture = green_door_tex
+			if not global.unlocked_melon:
+				$Label.text = "Locked"
+				$Banner.visible = false
+				$Label.rect_position.y = $Banner.position.y - 4
 		"black":
 			$Door.texture = black_door_tex
 			$Banner.visible = false
@@ -46,6 +54,10 @@ func _input(event):
 	if event.is_action_pressed("interact") and $Label.visible:
 		if door_color == "black":
 			global.exit_spawn = exit_spawn
+		if door_color == "purple" and not global.unlocked_grape:
+			return
+		if door_color == "green" and not global.unlocked_melon:
+			return
 		global.change_scene(next_scene)
 
 func _on_Area2D_body_entered(body):

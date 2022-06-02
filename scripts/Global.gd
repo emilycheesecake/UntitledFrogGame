@@ -9,6 +9,9 @@ var player
 var exit_spawn = Vector2.ZERO
 var music_position
 
+var unlocked_grape = false
+var unlocked_melon = false
+
 # Music
 var main_menu_music = preload("res://assets/music/MainMenu.wav")
 var level_one_music = preload("res://assets/music/LevelOne.ogg")

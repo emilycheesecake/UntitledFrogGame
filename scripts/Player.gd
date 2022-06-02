@@ -5,6 +5,7 @@ onready var global = get_node("/root/Global")
 var velocity = Vector2.ZERO
 var is_jumping = false
 var can_wall_jump = true
+var wall_jump_energy = true
 var on_wall = false
 var jump_strength = 0.0
 var start_position = Vector2(50, -50)
@@ -27,6 +28,9 @@ export var death_height = 48
 export var health = 6
 export var lives = 3
 
+var normal_frog = preload("res://assets/froglet/pink/PNG/froglet_frog_pink_sheet_all.png")
+var tired_frog = preload("res://assets/froglet/blue/PNG/froglet_frog_blue_sheet_all.png")
+
 func _ready():
 	$InvulnTimer.stop()
 	position = start_position
@@ -46,19 +50,23 @@ func _physics_process(delta):
 	if not global.paused:
 		# Handle player input and physics if they are not dead
 		if not is_dead:
+			# Switch frog color depending on whether or not they can wall jump
+			print(wall_jump_energy)
+			if wall_jump_energy:
+				$Sprite.texture = normal_frog
+			else:
+				$Sprite.texture = tired_frog
 			# Gravity
 			velocity.y += delta * gravity
 			# Player Movement
 			if Input.is_action_pressed("move_right"):
 				velocity.x = speed
 				$Sprite.flip_h = false
-				$WallJumpTrigger.position.x = position.x - 5
 				if not is_jumping:
 					$AnimationTree.set("parameters/isWalking/current", 1)
 			elif Input.is_action_pressed("move_left"):
 				velocity.x = -speed
 				$Sprite.flip_h = true
-				$WallJumpTrigger.position.x = position.x + 5
 				if not is_jumping:
 					$AnimationTree.set("parameters/isWalking/current", 1)
 			else:
@@ -67,15 +75,12 @@ func _physics_process(delta):
 				if is_on_floor():
 					$AnimationTree.set("parameters/isWalking/current", 0)
 			
-			if is_on_floor() and is_jumping and !can_wall_jump:
-				can_wall_jump = true
+			if is_on_floor() and not wall_jump_energy:
+				wall_jump_energy = true
 			
-			if is_touching_wall() and can_wall_jump:
+			if is_touching_wall() and can_wall_jump and wall_jump_energy:
 				if Input.is_action_pressed("jump"):
-					jump_strength = jump_height * 4
 					jump()
-					velocity.x += 16 if not $Sprite.flip_h else -16
-					can_wall_jump = false
 			
 			if is_on_floor():
 				can_wall_jump = false
@@ -116,9 +121,15 @@ func jump():
 	if !is_dead:
 		if is_on_floor():
 			velocity.y = -jump_strength
-		elif is_touching_wall():
+		elif is_touching_wall() and wall_jump_energy:
 			print("walljump attempts")
-			velocity.y = -jump_strength * 4
+			velocity.y = -200
+			can_wall_jump = false
+			wall_jump_energy = false
+			if $Sprite.flip_h:
+				velocity.x = 30
+			else:
+				velocity.x = -30
 		$AnimationTree.set("parameters/jumpPrep/current", 0)
 		$AnimationTree.set("parameters/isJumping/active", true)
 		is_jumping = true
