@@ -51,7 +51,6 @@ func _physics_process(delta):
 		# Handle player input and physics if they are not dead
 		if not is_dead:
 			# Switch frog color depending on whether or not they can wall jump
-			print(wall_jump_energy)
 			if wall_jump_energy:
 				$Sprite.texture = normal_frog
 			else:
@@ -122,7 +121,6 @@ func jump():
 		if is_on_floor():
 			velocity.y = -jump_strength
 		elif is_touching_wall() and wall_jump_energy:
-			print("walljump attempts")
 			velocity.y = -200
 			can_wall_jump = false
 			wall_jump_energy = false

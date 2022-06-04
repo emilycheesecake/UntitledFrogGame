@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/MovingPlatform.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Main.tres" type="TileSet" id=2]
+
+[node name="MovingBluePlatform" type="Node2D"]
+script = ExtResource( 1 )
+move_distance = 250
+speed = 25
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 1
+cell_custom_transform = Transform2D( 8, 0, 0, 8, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 0, 19, 0, 1, 20, 0, 3, 20, 0, 5, 20, 0, 7, 20, 0, 9, 21, 0, 131073, 33, 0, 131075, 34, 0, 131077, 34, 0, 131079, 35, 0 )
+
+[node name="StopTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="StopTimer" to="." method="_on_StopTimer_timeout"]
