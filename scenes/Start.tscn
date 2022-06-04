@@ -36,12 +36,12 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=3]
+[sub_resource type="AnimationNodeAnimation" id=2]
 animation = "intro"
 
-[sub_resource type="AnimationNodeBlendTree" id=2]
+[sub_resource type="AnimationNodeBlendTree" id=3]
 graph_offset = Vector2( -46, 88 )
-nodes/Animation/node = SubResource( 3 )
+nodes/Animation/node = SubResource( 2 )
 nodes/Animation/position = Vector2( 99, 151 )
 node_connections = [ "output", 0, "Animation" ]
 
@@ -56,14 +56,17 @@ color = Color( 0, 0, 0, 1 )
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="CenterContainer"]
 margin_left = 179.0
 margin_top = 226.0
 margin_right = 333.0
 margin_bottom = 254.0
-custom_colors/font_color = Color( 0.686275, 0, 1, 1 )
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.686275, 0, 1, 1 )
 text = "emilyy.games"
 align = 1
 valign = 1
@@ -72,6 +75,6 @@ valign = 1
 anims/intro = SubResource( 1 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 2 )
+tree_root = SubResource( 3 )
 anim_player = NodePath("../AnimationPlayer")
 active = true

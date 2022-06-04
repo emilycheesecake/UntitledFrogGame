@@ -3,7 +3,7 @@ extends Node2D
 var in_game = false
 var paused = false
 var crt_shader = true
-var music = false
+var music = true
 var current_level = 1
 var player
 var exit_spawn = Vector2.ZERO
@@ -16,6 +16,7 @@ var unlocked_melon = false
 var main_menu_music = preload("res://assets/music/MainMenu.wav")
 var level_one_music = preload("res://assets/music/LevelOne.ogg")
 var selection_music = preload("res://assets/music/SelectionRoom.wav")
+var blue_land_music = preload("res://assets/music/BlueLevel.mp3")
 var grape_galaxy_music = preload("res://assets/music/GrapeGalaxy.mp3")
 
 export(PackedScene) var main_menu
@@ -88,7 +89,7 @@ func change_scene(scene):
 			$AudioStreamPlayer.stream = selection_music
 		3: # Blue Land
 			i = blue_land.instance()
-			$AudioStreamPlayer.stream = null
+			$AudioStreamPlayer.stream = blue_land_music
 		4: #Purple Land
 			i = purple_land.instance()
 			$AudioStreamPlayer.stream = grape_galaxy_music

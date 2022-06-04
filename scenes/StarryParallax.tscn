@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/Enjl-Starry Space Background/background_4.png" type="Texture" id=1]
+[ext_resource path="res://assets/Enjl-Starry Space Background/background_1.png" type="Texture" id=2]
+[ext_resource path="res://assets/Enjl-Starry Space Background/background_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/Enjl-Starry Space Background/background_3.png" type="Texture" id=4]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+offset = Vector2( 0, -128 )
+transform = Transform2D( 1, 0, 0, 1, 0, -128 )
+follow_viewport_scale = 0.5
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.3, 0.3 )
+motion_mirroring = Vector2( 512, 448 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer"]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 448 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.6, 0.6 )
+motion_mirroring = Vector2( 512, 448 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer2"]
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 448 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.7, 0.7 )
+motion_mirroring = Vector2( 512, 448 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer3"]
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 448 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.4, 0.4 )
+motion_mirroring = Vector2( 512, 448 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer4"]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 448 )

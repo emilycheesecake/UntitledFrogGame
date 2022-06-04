@@ -8,29 +8,64 @@ export var vertical_movement = false
 var target = Vector2.ZERO
 var initial_pos = Vector2.ZERO
 var moving_right = true
+var moving_up = true
 var is_moving = false
-
+var velocity = Vector2.ZERO
+var player = null
 
 func _ready():
 	initial_pos = position
-	target = Vector2(position.x + move_distance, position.y)
+	if vertical_movement:
+		target = Vector2(position.x, position.y - move_distance)
+	else:
+		target = Vector2(position.x + move_distance, position.y)
 
 func _physics_process(delta):
+	velocity = Vector2.ZERO
 	if is_moving:
-		if moving_right:
-			if position.x < target.x:
-				position.x += speed * delta
+		if vertical_movement:
+			if moving_up:
+				if position.y > target.y:
+					velocity.y -= speed
+				else:
+					moving_up = false
+					is_moving = false
+					$StopTimer.start()
 			else:
-				moving_right = false
-				is_moving = false
-				$StopTimer.start()
+				if position.y < initial_pos.y:
+					velocity.y += speed
+				else:
+					moving_up = true
+					is_moving = false
+					$StopTimer.start()
+			position += velocity * delta	
 		else:
-			if position.x > initial_pos.x:
-				position.x -= speed * delta
+			if moving_right:
+				if position.x < target.x:
+					velocity.x += speed
+				else:
+					moving_right = false
+					is_moving = false
+					$StopTimer.start()
 			else:
-				moving_right = true
-				is_moving = false
-				$StopTimer.start()
+				if position.x > initial_pos.x:
+					velocity.x -= speed
+				else:
+					moving_right = true
+					is_moving = false
+					$StopTimer.start()
+			position += velocity * delta
+		if player != null:
+			player.position += velocity * delta
+
+
+func _on_Area2D_body_entered(body):
+	if "Player" in body.name:
+		player = body
+
+func _on_Area2D_body_exited(body):
+	if "Player" in body.name:
+		player = null
 
 
 func _on_StopTimer_timeout():
