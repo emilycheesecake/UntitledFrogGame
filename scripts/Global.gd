@@ -3,11 +3,12 @@ extends Node2D
 var in_game = false
 var paused = false
 var crt_shader = true
-var music = true
+var music = false
 var current_level = 1
 var player
 var exit_spawn = Vector2.ZERO
 var music_position
+var input_type = "keyboard"
 
 var unlocked_grape = false
 var unlocked_melon = false
@@ -18,6 +19,11 @@ var level_one_music = preload("res://assets/music/LevelOne.ogg")
 var selection_music = preload("res://assets/music/SelectionRoom.wav")
 var blue_land_music = preload("res://assets/music/BlueLevel.mp3")
 var grape_galaxy_music = preload("res://assets/music/GrapeGalaxy.mp3")
+
+# Button Prompts
+var keyboard_interact = preload("res://assets/prompts/keyboard/interact.png")
+var xbox_interact = preload("res://assets/prompts/xbox/interact.png")
+var ps_interact = preload("res://assets/prompts/ps/interact.png")
 
 export(PackedScene) var main_menu
 export(PackedScene) var pause_menu

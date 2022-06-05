@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/Door.gd" type="Script" id=1]
 [ext_resource path="res://assets/doors/bluebanner.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/Fibberish_16pt.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/doors/bluedoor.png" type="Texture" id=4]
+[ext_resource path="res://assets/prompts/keyboard/interact.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 12 )
@@ -23,6 +24,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, -13 ), Vector2( 0, -14 ), Vector2( 0, -16 ), Vector2( 0, -17 ), Vector2( 0, -16 ), Vector2( 0, -14 ), Vector2( 0, -13 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ButtonPrompt:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1 ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=3]
@@ -50,17 +63,27 @@ shape = SubResource( 1 )
 
 [node name="Label" type="Label" parent="."]
 visible = false
-margin_left = -85.0
-margin_top = -39.0
-margin_right = 84.0
-margin_bottom = -25.0
+margin_left = -4.80113
+margin_top = -40.3239
+margin_right = 3.19887
+margin_bottom = -26.3239
+grow_horizontal = 2
 custom_fonts/font = ExtResource( 3 )
-text = "Press [e] to enter"
+text = "A"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonPrompt" type="Sprite" parent="."]
+visible = false
+position = Vector2( -10.5379, -33.9322 )
+texture = ExtResource( 5 )
+hframes = 2
 
 [node name="Banner" type="Sprite" parent="."]
-position = Vector2( 0, -15.5091 )
+position = Vector2( 0, -13.4296 )
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

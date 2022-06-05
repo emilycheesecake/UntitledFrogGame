@@ -12,7 +12,7 @@ func _process(delta):
 	pass
 
 func _on_StartButton_pressed():
-	global.change_scene(1)
+	global.change_scene(3)
 	yield(global.get_node("UI/CircleTransition/AnimationPlayer"), "animation_finished")
 	queue_free()
 
