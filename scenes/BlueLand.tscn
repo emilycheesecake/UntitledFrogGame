@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Main.tres" type="TileSet" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/MovingBluePlatform.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/fonts/Fibberish_16pt.tres" type="DynamicFont" id=8]
 [ext_resource path="res://scenes/StarryParallax.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/UndeadExecutioner.tscn" type="PackedScene" id=10]
 
 [node name="BlueLand" type="Node2D"]
 
@@ -31,7 +32,7 @@ next_scene = 2
 exit_spawn = Vector2( 42, -140 )
 
 [node name="SpawnLocation" type="Node2D" parent="."]
-position = Vector2( 83.9609, -14.2442 )
+position = Vector2( 880.677, -436.97 )
 
 [node name="CameraFloor" type="Node2D" parent="."]
 position = Vector2( 576, 160 )
@@ -116,6 +117,9 @@ position = Vector2( 1658, -230 )
 
 [node name="FizzDude6" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 1532, -112 )
+
+[node name="UndeadExecutioner" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 689.26, -459.74 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 581.0
