@@ -6,8 +6,8 @@ var velocity = Vector2.ZERO
 export var flip = false
 export var gravity = 200.0
 export var speed = 20
-export var state = "idle"
 export var max_health = 15
+export var dead = false
 
 
 func _ready():
@@ -22,9 +22,8 @@ func _physics_process(delta):
 		if $AnimationTree.process_mode == AnimationTree.ANIMATION_PROCESS_MANUAL:
 			$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_IDLE
 	
-		if not stunned:
-			if state == "idle":
-				velocity.x = speed if $Sprite.flip_h else -speed
+		if not dead:
+			velocity.x = speed if $Sprite.flip_h else -speed
 		
 		velocity.y += gravity * delta
 	
@@ -34,8 +33,9 @@ func _physics_process(delta):
 
 func _on_Hitbox_body_entered(body):
 	if "Player" in body.name:
-		print("hurt player")
 		body.hurt()
+	if "Dude" in body.name:
+		$Sprite.flip_h = !$Sprite.flip_h
 
 func _on_Hitbox_area_entered(area):
 	if "EnemyWall" in area.name:

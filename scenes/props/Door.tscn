@@ -83,7 +83,7 @@ texture = ExtResource( 1 )
 hframes = 2
 
 [node name="Banner" type="Sprite" parent="."]
-position = Vector2( 0, -13.4296 )
+position = Vector2( 0, -16.6199 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

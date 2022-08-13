@@ -2,13 +2,14 @@ extends Node2D
 
 var in_game = false
 var paused = false
-var crt_shader = true
-var music = false
+var crt_shader = false
+var music = true
 var current_level = 1
 var player
 var exit_spawn = Vector2.ZERO
 var music_position
 var input_type = "keyboard"
+var level_spawn = Vector2.ZERO
 
 var unlocked_grape = false
 var unlocked_melon = false
@@ -115,6 +116,7 @@ func change_scene(scene):
 		exit_spawn = Vector2.ZERO
 	elif scene != 0: # Update player spawn location as long as it's not the main menu
 		player.position = i.get_node("SpawnLocation").position
+		level_spawn = i.get_node("SpawnLocation").position
 	
 	# Updating camera bounds
 	if i.get_node_or_null("CameraCeiling"):
@@ -128,6 +130,7 @@ func change_scene(scene):
 	else:
 		player.get_node("Camera2D").limit_bottom = 10000000
 	
+	current_level = scene
 	# Adding new level scene
 	$Game.add_child(i)
 	transition_in()

@@ -194,7 +194,7 @@ func death_reset():
 	
 	global.transition_out()
 	yield(global.get_node("UI/CircleTransition/AnimationPlayer"), "animation_finished")
-	position = start_position
+	position = global.level_spawn
 	is_dead = false
 	$AnimationTree.set("parameters/isDead/active", false)
 	$Sprite.position.y = 0
