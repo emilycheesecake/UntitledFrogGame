@@ -27,6 +27,7 @@ export var jump_height = 200
 export var death_height = 48
 export var health = 6
 export var lives = 3
+export var damage = 20
 
 var normal_frog = preload("res://assets/froglet/pink/PNG/froglet_frog_pink_sheet_all.png")
 var tired_frog = preload("res://assets/froglet/blue/PNG/froglet_frog_blue_sheet_all.png")
@@ -142,14 +143,16 @@ func start_attack():
 func attack():
 	var closest_dude
 	for b in $AttackRange.get_overlapping_bodies():
-		if "Dude" in b.name:
-			if !closest_dude:
-				closest_dude = b
-			if position.distance_to(b.position) < position.distance_to(closest_dude.position):
-				closest_dude = b
-			b.hit(Vector2(0, 0))
+		if "Dude" in b.name or "Meow" in b.name:
+			if (b.position.x < position.x and $Sprite.flip_h == true) or (b.position.x > position.x and $Sprite.flip_h == false): # only if player is facing them
+				if !closest_dude:
+					closest_dude = b
+				if position.distance_to(b.position) < position.distance_to(closest_dude.position):
+					closest_dude = b
 	$Tongue.clear_points()
 	if closest_dude != null:
+		# Damage
+		closest_dude.damage(damage)
 		# Sound Effect
 		$AudioStreamPlayer.stream = attack_sound
 		$AudioStreamPlayer.play()

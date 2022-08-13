@@ -174,3 +174,13 @@ func stop_music():
 	
 func start_music():
 	$AudioStreamPlayer.play()
+
+func update_boss_health(health):
+	$UI/GameUI/BossHealth.value = health
+
+func set_boss_health_visibility(v):
+	$UI/GameUI/BossHealth.visible = v
+	$UI/GameUI/BossLabel.visible = v
+
+func set_boss_name(name):
+	$UI/GameUI/BossLabel.text = name

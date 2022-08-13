@@ -1,0 +1,151 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/Fibberish_32pt.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/CRT Shader.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sodazonelogo.png" type="Texture" id=3]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://assets/Soda_Zone_Layout.png" type="Texture" id=5]
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "default"
+
+[sub_resource type="AnimationNodeBlendTree" id=1]
+graph_offset = Vector2( -582, 45 )
+nodes/Animation/node = SubResource( 3 )
+nodes/Animation/position = Vector2( -180, 144 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="Animation" id=2]
+resource_name = "default"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/TextureRect2:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ), Vector2( 0, -40 ), Vector2( 0, -20 ) ]
+}
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 7
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 33.0
+margin_top = 76.0
+margin_right = 479.0
+margin_bottom = 403.0
+
+[node name="TextureRect2" type="TextureRect" parent="CenterContainer/VBoxContainer"]
+margin_top = -33.5563
+margin_right = 446.0
+margin_bottom = 217.444
+texture = ExtResource( 3 )
+
+[node name="Main" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 255.0
+margin_right = 446.0
+margin_bottom = 327.0
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/Main"]
+margin_right = 446.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "Start"
+flat = true
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/VBoxContainer/Main"]
+margin_top = 38.0
+margin_right = 446.0
+margin_bottom = 72.0
+custom_fonts/font = ExtResource( 1 )
+text = "Settings"
+flat = true
+
+[node name="Settings" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+visible = false
+margin_top = 331.0
+margin_right = 446.0
+margin_bottom = 453.0
+
+[node name="Scanline" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Settings"]
+margin_right = 446.0
+margin_bottom = 40.0
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Settings/Scanline"]
+margin_left = 78.0
+margin_top = 6.0
+margin_right = 288.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "Scanline Shader:"
+align = 1
+valign = 1
+
+[node name="CheckButton" type="CheckButton" parent="CenterContainer/VBoxContainer/Settings/Scanline"]
+margin_left = 292.0
+margin_right = 368.0
+margin_bottom = 40.0
+
+[node name="Music" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Settings"]
+margin_top = 44.0
+margin_right = 446.0
+margin_bottom = 84.0
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Settings/Music"]
+margin_left = 145.0
+margin_top = 6.0
+margin_right = 221.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "Music:"
+align = 1
+valign = 1
+
+[node name="CheckButton" type="CheckButton" parent="CenterContainer/VBoxContainer/Settings/Music"]
+margin_left = 225.0
+margin_right = 301.0
+margin_bottom = 40.0
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer/Settings"]
+margin_top = 88.0
+margin_right = 446.0
+margin_bottom = 122.0
+custom_fonts/font = ExtResource( 1 )
+text = "Back"
+flat = true
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 1 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/default = SubResource( 2 )
+
+[node name="CRTShader" parent="." instance=ExtResource( 2 )]
+mouse_filter = 2
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Main/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Main/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="toggled" from="CenterContainer/VBoxContainer/Settings/Scanline/CheckButton" to="." method="_on_scanline_toggled"]
+[connection signal="toggled" from="CenterContainer/VBoxContainer/Settings/Music/CheckButton" to="." method="_on_music_toggled"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Settings/BackButton" to="." method="_on_SettingsBackButton_pressed"]

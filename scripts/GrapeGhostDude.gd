@@ -1,13 +1,17 @@
 extends "res://scripts/Enemy.gd"
 
-export(PackedScene) var grape_bullet;
-
+var velocity = Vector2.ZERO
 var can_shoot = true
-var dead = false
+
+export var dead = false
+export var max_health = 30
+export(PackedScene) var grape_bullet;
 
 func _ready():
 	# Set point value
 	point_value = 350
+	# Set health
+	set_health(max_health)
 
 func _physics_process(delta):
 	for body in $Area2D.get_overlapping_bodies():
@@ -37,12 +41,6 @@ func shoot(target):
 
 func hide_smoke():
 	$Sprite/Smoke.visible = false
-
-func hit(knockback):
-	position.y -= knockback.y
-	position.x += knockback.x
-	dead = true
-	$AnimationTree.set("parameters/state/current", 2)
 
 func _on_CooldownTimer_timeout():
 	can_shoot = true

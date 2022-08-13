@@ -1,21 +1,24 @@
 extends "res://scripts/Enemy.gd"
 
-export var pace_distance = 20
-export var speed = 10
-export var knockback = 80
-
 var velocity = Vector2.ZERO
 var initial_position
 var point_a
 var point_b
 var moving_to = "a"
 
+export var pace_distance = 20
+export var speed = 10
+export var knockback = 80
+export var max_health = 10
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set point value
 	point_value = 250
-	$AnimationTree.set("parameters/state", 0)
+	# Set health
+	set_health(max_health)
+	$AnimationTree.set("parameters/isDead", 0)
 	initial_position = position
 	point_a = Vector2(initial_position.x - pace_distance, initial_position.y)
 	point_b = Vector2(initial_position.x + pace_distance, initial_position.y)
@@ -49,19 +52,7 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity)
 	else:
 		$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_MANUAL
-	
-func hit(knockback):
-	velocity.x = 0
-	position.y -= knockback.y
-	position.x += knockback.x
-	$AnimationTree.set("parameters/state/current", 1)
-	$DeathTimer.start()
 
 func _on_Hitbox_body_entered(body):
 	if "Player" in body.name:
 		body.hurt()
-
-
-
-func _on_DeathTimer_timeout():
-	die()

@@ -1,18 +1,20 @@
 extends "res://scripts/Enemy.gd"
 
-var velocity = Vector2()
 var stunned = false
+var velocity = Vector2.ZERO
 
 export var flip = false
 export var gravity = 200.0
 export var speed = 20
 export var state = "idle"
-export var knockback = 40
+export var max_health = 15
 
 
 func _ready():
 	# Set point value
 	point_value = 450
+	# Set health
+	set_health(max_health)
 	$Sprite.material.set_shader_param("active", false)
 
 func _physics_process(delta):
@@ -29,13 +31,6 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 	else:
 		$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_MANUAL
-
-func hit(knockback):
-	state = "hit"
-	velocity.x = 0
-	position.y -= knockback.y
-	position.x += knockback.x
-	$AnimationTree.set("parameters/isHit/active", true)
 
 func _on_Hitbox_body_entered(body):
 	if "Player" in body.name:
