@@ -1,4 +1,5 @@
 assets/*
+exports/*
 
 # Godot-specific ignores
 .import/
