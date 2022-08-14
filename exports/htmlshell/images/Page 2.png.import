@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sodazonelogo.png-760ebe2388a4038d18b5780e32a55186.stex"
+path="res://.import/Page 2.png-6bd8e97ddfe74d072f0642422a3cccbf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://exports/htmlshell/images/sodazonelogo.png"
-dest_files=[ "res://.import/sodazonelogo.png-760ebe2388a4038d18b5780e32a55186.stex" ]
+source_file="res://exports/htmlshell/images/Page 2.png"
+dest_files=[ "res://.import/Page 2.png-6bd8e97ddfe74d072f0642422a3cccbf.stex" ]
 
 [params]
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts/Fibberish_32pt.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/CRT Shader.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/sodazonelogo.png" type="Texture" id=3]
+[ext_resource path="res://assets/ufglogo.png" type="Texture" id=3]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=4]
 [ext_resource path="res://assets/Soda_Zone_Layout.png" type="Texture" id=5]
+[ext_resource path="res://shaders/CRT_mat.tres" type="Material" id=6]
 
 [sub_resource type="AnimationNodeAnimation" id=3]
 animation = "default"
@@ -48,20 +49,20 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 33.0
-margin_top = 76.0
+margin_top = 98.0
 margin_right = 479.0
-margin_bottom = 403.0
+margin_bottom = 382.0
 
 [node name="TextureRect2" type="TextureRect" parent="CenterContainer/VBoxContainer"]
-margin_top = -33.5563
+margin_top = -30.8687
 margin_right = 446.0
-margin_bottom = 217.444
+margin_bottom = 177.131
 texture = ExtResource( 3 )
 
 [node name="Main" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 255.0
+margin_top = 212.0
 margin_right = 446.0
-margin_bottom = 327.0
+margin_bottom = 284.0
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/Main"]
 margin_right = 446.0
@@ -142,6 +143,7 @@ active = true
 anims/default = SubResource( 2 )
 
 [node name="CRTShader" parent="." instance=ExtResource( 2 )]
+material = ExtResource( 6 )
 mouse_filter = 2
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Main/StartButton" to="." method="_on_StartButton_pressed"]
