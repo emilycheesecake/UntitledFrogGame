@@ -8,13 +8,12 @@
 [ext_resource path="res://scenes/ui/MainMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui/CircleTransition.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/levels/GreenLand.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/CRT Shader.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/LCD Shader.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/ui/PauseMenu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/levels/PurpleLand.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/enemies/DeathExplosion.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/ui/GameOver.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/levels/BlueLand.tscn" type="PackedScene" id=14]
-
 
 [node name="Global" type="Node2D"]
 script = ExtResource( 1 )

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://shaders/HitFlash.tres" type="Shader" id=1]
-[ext_resource path="res://scripts/FizzDude.gd" type="Script" id=2]
+[ext_resource path="res://scripts/enemies/FizzDude.gd" type="Script" id=2]
 [ext_resource path="res://assets/Fizz_Dude.png" type="Texture" id=3]
 
 [sub_resource type="ShaderMaterial" id=7]

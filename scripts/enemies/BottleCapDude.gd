@@ -1,4 +1,4 @@
-extends "res://scripts/Enemy.gd"
+extends "res://scripts/enemies/Enemy.gd"
 
 var stunned = false
 var velocity = Vector2.ZERO

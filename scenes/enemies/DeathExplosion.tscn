@@ -1,6 +1,6 @@
 [gd_scene load_steps=84 format=2]
 
-[ext_resource path="res://scripts/DeathExplosion.gd" type="Script" id=1]
+[ext_resource path="res://scripts/enemies/DeathExplosion.gd" type="Script" id=1]
 [ext_resource path="res://assets/explosion_spritesheet.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=1]

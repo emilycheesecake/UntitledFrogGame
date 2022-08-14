@@ -1,4 +1,4 @@
-extends "res://scripts/Enemy.gd"
+extends "res://scripts/enemies/Enemy.gd"
 
 var velocity = Vector2.ZERO
 var can_shoot = true

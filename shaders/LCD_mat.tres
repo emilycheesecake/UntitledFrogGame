@@ -1,8 +1,8 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
-[ext_resource path="res://shaders/CRT.tres" type="Shader" id=1]
+[ext_resource path="res://shaders/LCD.tres" type="Shader" id=1]
 
 [resource]
 render_priority = 1
 shader = ExtResource( 1 )
-shader_param/scanline_count = 200.0
+shader_param/fragCoord = Vector2( 100, 100 )

@@ -1,4 +1,4 @@
-extends "res://scripts/Enemy.gd"
+extends "res://scripts/enemies/Enemy.gd"
 
 var initial_position
 var player = null
