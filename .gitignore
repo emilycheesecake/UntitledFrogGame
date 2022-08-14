@@ -1,4 +1,5 @@
 assets/*
+exports/*.ttf
 
 # Godot-specific ignores
 .import/
