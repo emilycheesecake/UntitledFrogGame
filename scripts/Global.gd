@@ -2,7 +2,7 @@ extends Node2D
 
 var in_game = false
 var paused = false
-var crt_shader = false
+var crt_shader = true
 var music = false
 var current_level = 1
 var player

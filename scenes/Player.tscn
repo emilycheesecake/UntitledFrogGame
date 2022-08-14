@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://assets/froglet/pink/PNG/froglet_frog_pink_sheet_all.png" type="Texture" id=1]
 [ext_resource path="res://scenes/enemies/AttackHitbox.tscn" type="PackedScene" id=3]
@@ -94,6 +94,36 @@ tracks/2/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=55]
+resource_name = "fall"
+length = 0.1
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 18 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:is_falling")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [sub_resource type="Animation" id=49]
 resource_name = "hit"
 step = 0.05
@@ -129,7 +159,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=38]
 resource_name = "jump"
-length = 0.7
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -138,10 +167,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.9, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.25, 0.35, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
+"values": [ 11, 12, 13, 14, 15, 16, 17 ]
 }
 
 [sub_resource type="Animation" id=40]
@@ -196,12 +225,22 @@ animation = "walk"
 [sub_resource type="AnimationNodeAnimation" id=51]
 animation = "hit"
 
+[sub_resource type="AnimationNodeAnimation" id=56]
+animation = "fall"
+
 [sub_resource type="AnimationNodeAnimation" id=32]
 animation = "idle"
 
 [sub_resource type="AnimationNodeOneShot" id=46]
 
 [sub_resource type="AnimationNodeOneShot" id=43]
+
+[sub_resource type="AnimationNodeTransition" id=57]
+input_count = 2
+input_0/name = "ground"
+input_0/auto_advance = false
+input_1/name = "falling"
+input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeOneShot" id=52]
 
@@ -222,35 +261,39 @@ input_1/name = "isJump"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=33]
-graph_offset = Vector2( -59.9925, 52.5037 )
+graph_offset = Vector2( 489.175, 91.9739 )
 nodes/Animation/node = SubResource( 32 )
-nodes/Animation/position = Vector2( 220, 140 )
+nodes/Animation/position = Vector2( 840, 320 )
 "nodes/Animation 2/node" = SubResource( 34 )
-"nodes/Animation 2/position" = Vector2( 200, 260 )
+"nodes/Animation 2/position" = Vector2( 840, 480 )
 "nodes/Animation 3/node" = SubResource( 35 )
-"nodes/Animation 3/position" = Vector2( 520, 540 )
+"nodes/Animation 3/position" = Vector2( 1220, 480 )
 "nodes/Animation 4/node" = SubResource( 42 )
-"nodes/Animation 4/position" = Vector2( 820, 340 )
+"nodes/Animation 4/position" = Vector2( 1640, 480 )
 "nodes/Animation 5/node" = SubResource( 45 )
-"nodes/Animation 5/position" = Vector2( 1180, 360 )
+"nodes/Animation 5/position" = Vector2( 1840, 480 )
 "nodes/Animation 6/node" = SubResource( 47 )
-"nodes/Animation 6/position" = Vector2( 234.869, 462.987 )
+"nodes/Animation 6/position" = Vector2( 1020, 480 )
 "nodes/Animation 7/node" = SubResource( 51 )
-"nodes/Animation 7/position" = Vector2( 1440, 500 )
+"nodes/Animation 7/position" = Vector2( 2040, 480 )
+"nodes/Animation 8/node" = SubResource( 56 )
+"nodes/Animation 8/position" = Vector2( 1440, 480 )
 nodes/isAttacking/node = SubResource( 46 )
-nodes/isAttacking/position = Vector2( 1360, 260 )
+nodes/isAttacking/position = Vector2( 2040, 280 )
 nodes/isDead/node = SubResource( 43 )
-nodes/isDead/position = Vector2( 1000, 280 )
+nodes/isDead/position = Vector2( 1840, 280 )
+nodes/isFalling/node = SubResource( 57 )
+nodes/isFalling/position = Vector2( 1640, 300 )
 nodes/isHit/node = SubResource( 52 )
-nodes/isHit/position = Vector2( 1677.75, 318.987 )
+nodes/isHit/position = Vector2( 2260, 320 )
 nodes/isJumping/node = SubResource( 36 )
-nodes/isJumping/position = Vector2( 760, 160 )
+nodes/isJumping/position = Vector2( 1440, 280 )
 nodes/isWalking/node = SubResource( 37 )
-nodes/isWalking/position = Vector2( 400, 180 )
+nodes/isWalking/position = Vector2( 1020, 300 )
 nodes/jumpPrep/node = SubResource( 48 )
-nodes/jumpPrep/position = Vector2( 560, 260 )
-nodes/output/position = Vector2( 1860, 180 )
-node_connections = [ "output", 0, "isHit", "isDead", 0, "isJumping", "isDead", 1, "Animation 4", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5" ]
+nodes/jumpPrep/position = Vector2( 1220, 300 )
+nodes/output/position = Vector2( 2440, 320 )
+node_connections = [ "output", 0, "isHit", "isHit", 0, "isAttacking", "isHit", 1, "Animation 7", "isDead", 0, "isFalling", "isDead", 1, "Animation 4", "isAttacking", 0, "isDead", "isAttacking", 1, "Animation 5", "jumpPrep", 0, "isWalking", "jumpPrep", 1, "Animation 6", "isWalking", 0, "Animation", "isWalking", 1, "Animation 2", "isJumping", 0, "jumpPrep", "isJumping", 1, "Animation 3", "isFalling", 0, "isJumping", "isFalling", 1, "Animation 8" ]
 
 [sub_resource type="ShaderMaterial" id=50]
 shader = ExtResource( 5 )
@@ -272,6 +315,7 @@ collision_mask = 21
 script = ExtResource( 4 )
 attack_hitbox = ExtResource( 3 )
 attacking = true
+is_falling = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, 3 )
@@ -285,6 +329,7 @@ smoothing_enabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 44 )
 anims/death = SubResource( 41 )
+anims/fall = SubResource( 55 )
 anims/hit = SubResource( 49 )
 anims/idle = SubResource( 27 )
 anims/jump = SubResource( 38 )
@@ -297,6 +342,7 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/isAttacking/active = false
 parameters/isDead/active = false
+parameters/isFalling/current = 0
 parameters/isHit/active = false
 parameters/isJumping/active = false
 parameters/isWalking/current = 0
@@ -315,7 +361,7 @@ material = SubResource( 50 )
 texture = ExtResource( 1 )
 hframes = 11
 vframes = 9
-frame = 1
+frame = 5
 
 [node name="InvulnTimer" type="Timer" parent="."]
 

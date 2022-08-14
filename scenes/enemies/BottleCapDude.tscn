@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://shaders/HitFlash.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/enemies/BottleCapDude.gd" type="Script" id=2]
@@ -17,6 +17,9 @@ animation = "hit"
 [sub_resource type="AnimationNodeAnimation" id=13]
 animation = "die"
 
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "attack"
+
 [sub_resource type="AnimationNodeAnimation" id=1]
 animation = "walk"
 
@@ -24,7 +27,7 @@ animation = "walk"
 input_count = 2
 input_0/name = "walk"
 input_0/auto_advance = false
-input_1/name = "hit"
+input_1/name = "attack"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeTransition" id=14]
@@ -37,21 +40,52 @@ input_1/auto_advance = false
 [sub_resource type="AnimationNodeOneShot" id=11]
 
 [sub_resource type="AnimationNodeBlendTree" id=2]
-graph_offset = Vector2( 287, 1 )
+graph_offset = Vector2( -34, 126.5 )
 nodes/Animation/node = SubResource( 1 )
 nodes/Animation/position = Vector2( 400, 140 )
 "nodes/Animation 2/node" = SubResource( 9 )
 "nodes/Animation 2/position" = Vector2( 870, 243.5 )
 "nodes/Animation 3/node" = SubResource( 13 )
 "nodes/Animation 3/position" = Vector2( 1200, 340 )
-nodes/enemyState/node = SubResource( 10 )
-nodes/enemyState/position = Vector2( 660, 60 )
+"nodes/Animation 4/node" = SubResource( 16 )
+"nodes/Animation 4/position" = Vector2( 400, 280 )
+nodes/isAttacking/node = SubResource( 10 )
+nodes/isAttacking/position = Vector2( 660, 60 )
 nodes/isDead/node = SubResource( 14 )
 nodes/isDead/position = Vector2( 1440, 180 )
 nodes/isHit/node = SubResource( 11 )
 nodes/isHit/position = Vector2( 1060, 100 )
 nodes/output/position = Vector2( 1680, 100 )
-node_connections = [ "output", 0, "isDead", "isDead", 0, "isHit", "isDead", 1, "Animation 3", "enemyState", 0, "Animation", "isHit", 0, "enemyState", "isHit", 1, "Animation 2" ]
+node_connections = [ "output", 0, "isDead", "isHit", 0, "isAttacking", "isHit", 1, "Animation 2", "isDead", 0, "isHit", "isDead", 1, "Animation 3", "isAttacking", 0, "Animation", "isAttacking", 1, "Animation 4" ]
+
+[sub_resource type="Animation" id=19]
+resource_name = "attack"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:is_attacking")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=15]
 resource_name = "die"
@@ -159,11 +193,16 @@ extents = Vector2( 7, 8 )
 
 [sub_resource type="RectangleShape2D" id=12]
 
+[sub_resource type="CircleShape2D" id=18]
+radius = 31.0
+
 [node name="BottleCapDude" type="KinematicBody2D"]
 z_index = 2
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
+dead = true
+is_attacking = true
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 7 )
@@ -175,11 +214,12 @@ frame = 1
 tree_root = SubResource( 2 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/enemyState/current = 0
+parameters/isAttacking/current = 0
 parameters/isDead/current = 0
 parameters/isHit/active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack = SubResource( 19 )
 anims/die = SubResource( 15 )
 anims/hit = SubResource( 8 )
 anims/walk = SubResource( 3 )
@@ -197,5 +237,15 @@ collision_layer = 4
 position = Vector2( -1, 0 )
 shape = SubResource( 12 )
 
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource( 18 )
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

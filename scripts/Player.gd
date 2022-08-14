@@ -28,6 +28,7 @@ export var death_height = 48
 export var health = 6
 export var lives = 3
 export var damage = 20
+export var is_falling = false
 
 var normal_frog = preload("res://assets/froglet/pink/PNG/froglet_frog_pink_sheet_all.png")
 var tired_frog = preload("res://assets/froglet/blue/PNG/froglet_frog_blue_sheet_all.png")
@@ -94,7 +95,15 @@ func _physics_process(delta):
 			else:
 				jump_strength = 0
 				global.update_jump_strength(jump_strength)
-				
+			
+			if velocity.y > 5:
+				$AnimationTree.set("parameters/isFalling/current", 1)
+
+			if is_on_floor() and is_falling:
+				$AnimationTree.set("parameters/isFalling/current", 0)
+				$AnimationTree.set("parameters/isWalking/current", 1)
+				is_falling = false
+
 			# Update health UI
 			global.update_health(health)
 			velocity = move_and_slide(velocity, Vector2(0, -1))
