@@ -1,5 +1,5 @@
 assets/*
-exports/*.ttf
+exports/htmlshell/*.ttf
 
 # Godot-specific ignores
 .import/
