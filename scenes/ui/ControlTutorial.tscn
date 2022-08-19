@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fonts/Fibberish_16pt.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/ui/ControlTutorial.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 68.1175
+
+[node name="ControlTutorial" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = -96.0
+margin_top = -90.0
+margin_right = 94.0
+margin_bottom = -31.0
+custom_fonts/font = ExtResource( 1 )
+text = "Default Control Tutorial Text
+change me!"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_ControlTutorial_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

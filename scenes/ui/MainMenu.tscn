@@ -34,6 +34,7 @@ tracks/0/keys = {
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 4 )
+initial_scene = 3
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -53,9 +54,9 @@ margin_right = 479.0
 margin_bottom = 382.0
 
 [node name="TextureRect2" type="TextureRect" parent="CenterContainer/VBoxContainer"]
-margin_top = -39.5675
+margin_top = -21.454
 margin_right = 446.0
-margin_bottom = 168.432
+margin_bottom = 186.546
 texture = ExtResource( 3 )
 
 [node name="Main" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]

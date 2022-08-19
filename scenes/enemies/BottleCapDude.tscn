@@ -23,12 +23,7 @@ animation = "attack"
 [sub_resource type="AnimationNodeAnimation" id=1]
 animation = "walk"
 
-[sub_resource type="AnimationNodeTransition" id=10]
-input_count = 2
-input_0/name = "walk"
-input_0/auto_advance = false
-input_1/name = "attack"
-input_1/auto_advance = false
+[sub_resource type="AnimationNodeOneShot" id=20]
 
 [sub_resource type="AnimationNodeTransition" id=14]
 input_count = 2
@@ -40,7 +35,7 @@ input_1/auto_advance = false
 [sub_resource type="AnimationNodeOneShot" id=11]
 
 [sub_resource type="AnimationNodeBlendTree" id=2]
-graph_offset = Vector2( -34, 126.5 )
+graph_offset = Vector2( 244.688, 0 )
 nodes/Animation/node = SubResource( 1 )
 nodes/Animation/position = Vector2( 400, 140 )
 "nodes/Animation 2/node" = SubResource( 9 )
@@ -49,19 +44,18 @@ nodes/Animation/position = Vector2( 400, 140 )
 "nodes/Animation 3/position" = Vector2( 1200, 340 )
 "nodes/Animation 4/node" = SubResource( 16 )
 "nodes/Animation 4/position" = Vector2( 400, 280 )
-nodes/isAttacking/node = SubResource( 10 )
-nodes/isAttacking/position = Vector2( 660, 60 )
+nodes/isAttacking/node = SubResource( 20 )
+nodes/isAttacking/position = Vector2( 660, 120 )
 nodes/isDead/node = SubResource( 14 )
 nodes/isDead/position = Vector2( 1440, 180 )
 nodes/isHit/node = SubResource( 11 )
 nodes/isHit/position = Vector2( 1060, 100 )
 nodes/output/position = Vector2( 1680, 100 )
-node_connections = [ "output", 0, "isDead", "isHit", 0, "isAttacking", "isHit", 1, "Animation 2", "isDead", 0, "isHit", "isDead", 1, "Animation 3", "isAttacking", 0, "Animation", "isAttacking", 1, "Animation 4" ]
+node_connections = [ "output", 0, "isDead", "isDead", 0, "isHit", "isDead", 1, "Animation 3", "isAttacking", 0, "Animation", "isAttacking", 1, "Animation 4", "isHit", 0, "isAttacking", "isHit", 1, "Animation 2" ]
 
 [sub_resource type="Animation" id=19]
 resource_name = "attack"
 length = 1.8
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -81,10 +75,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:can_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=15]
@@ -154,7 +160,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false, true, false, true, true, true, false, true, false, true, false, true, false, false, true, true, true, false, true, true ]
+"values": [ true, false, true, false, true, true, true, false, true, false, true, false, true, false, false, true, true, true, false, true, false ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -194,27 +200,25 @@ extents = Vector2( 7, 8 )
 [sub_resource type="RectangleShape2D" id=12]
 
 [sub_resource type="CircleShape2D" id=18]
-radius = 31.0
+radius = 46.0109
 
 [node name="BottleCapDude" type="KinematicBody2D"]
 z_index = 2
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
-dead = true
-is_attacking = true
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 7 )
 texture = ExtResource( 3 )
 hframes = 11
-frame = 1
+frame = 3
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 2 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/isAttacking/current = 0
+parameters/isAttacking/active = false
 parameters/isDead/current = 0
 parameters/isHit/active = false
 
@@ -243,9 +247,10 @@ shape = SubResource( 12 )
 shape = SubResource( 18 )
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

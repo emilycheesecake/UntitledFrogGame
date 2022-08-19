@@ -11,6 +11,8 @@ var blue_banner_tex = preload("res://assets/doors/bluebanner.png")
 var purple_banner_tex = preload("res://assets/doors/purplebanner.png")
 var green_banner_tex = preload("res://assets/doors/greenbanner.png")
 
+var locked = false
+
 
 
 export var door_color = "blue"
@@ -18,6 +20,7 @@ export var banner_color = "blue"
 export var interact_text = "Exit"
 export var next_scene = 0
 export var exit_spawn = Vector2.ZERO
+export var diff_exit_spawn = false
 
 
 func _ready():
@@ -29,13 +32,17 @@ func _ready():
 		"purple":
 			$Door.texture = purple_door_tex
 			if not global.unlocked_grape:
+				$Door.texture = black_door_tex
 				$Label.text = "Locked"
+				locked = true
 				$Banner.visible = false
 				$Label.rect_position.y = $Banner.position.y - 4
 		"green":
 			$Door.texture = green_door_tex
 			if not global.unlocked_melon:
+				$Door.texture = black_door_tex
 				$Label.text = "Locked"
+				locked = true
 				$Banner.visible = false
 				$Label.rect_position.y = $Banner.position.y - 4
 		"black":
@@ -62,7 +69,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("interact") and $Label.visible:
-		if door_color == "black":
+		if door_color == "black" and not locked:
 			global.exit_spawn = exit_spawn
 		if door_color == "purple" and not global.unlocked_grape:
 			return

@@ -96,7 +96,7 @@ func _physics_process(delta):
 				jump_strength = 0
 				global.update_jump_strength(jump_strength)
 			
-			if velocity.y > 5:
+			if velocity.y > 5 and not is_on_floor():
 				$AnimationTree.set("parameters/isFalling/current", 1)
 
 			if is_on_floor() and is_falling:

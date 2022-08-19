@@ -55,10 +55,10 @@ script = ExtResource( 3 )
 position = Vector2( 0, 8 )
 texture = ExtResource( 5 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="DoorArea" type="Area2D" parent="."]
 position = Vector2( 0, 8 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorArea"]
 shape = SubResource( 1 )
 
 [node name="Label" type="Label" parent="."]
@@ -81,9 +81,10 @@ visible = false
 position = Vector2( -10.5379, -33.9322 )
 texture = ExtResource( 1 )
 hframes = 2
+frame = 1
 
 [node name="Banner" type="Sprite" parent="."]
-position = Vector2( 0, -16.6199 )
+position = Vector2( 0, -15.7182 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -94,5 +95,5 @@ tree_root = SubResource( 4 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="DoorArea" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="DoorArea" to="." method="_on_Area2D_body_exited"]

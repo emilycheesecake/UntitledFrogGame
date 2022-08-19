@@ -30,7 +30,7 @@ func damage(amount):
 		death_trigger()
 	else:
 		health -= amount
-	$AnimationTree.set("parameters/isHit/active", true)
+		$AnimationTree.set("parameters/isHit/active", true)
 	if boss:
 		global.update_boss_health(health)
 

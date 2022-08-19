@@ -8,9 +8,9 @@ export var gravity = 200.0
 export var speed = 20
 export var rolling_speed = 50
 export var max_health = 15
-export var dead = false
+var dead = false
 export var can_attack = true
-export var is_attacking = false
+var is_attacking = false
 
 
 func _ready():
@@ -45,8 +45,6 @@ func _physics_process(delta):
 func _on_Hitbox_body_entered(body):
 	if "Player" in body.name:
 		body.hurt()
-		if is_attacking:
-			stop_attack()
 			
 	if "Dude" in body.name:
 		$Sprite.flip_h = !$Sprite.flip_h
@@ -55,18 +53,15 @@ func _on_Hitbox_area_entered(area):
 	if "EnemyWall" in area.name:
 		$Sprite.flip_h = !$Sprite.flip_h
 
-		if is_attacking:
-			stop_attack()
-
 func _on_AttackArea_body_entered(body):
 	if "Player" in body.name and can_attack:
-		$AnimationTree.set("parameters/isAttacking/current", 1)
+		print("FUCKING ATTACK")
+		$AnimationTree.set("parameters/isAttacking/active", true)
+		is_attacking = true
+		$AttackTimer.start()
 
 func _on_AttackTimer_timeout():
-	stop_attack()
-
-func stop_attack():
-	$AttackTimer.stop()
-	$AnimationTree.set("parameters/isAttacking/current", 0)
-	is_attacking = false
+	print("FUCKING RESET")
 	can_attack = true
+	$AttackTimer.stop()
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/props/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/EnemyWall.tscn" type="PackedScene" id=2]
@@ -6,11 +6,12 @@
 [ext_resource path="res://scenes/enemies/FizzDude.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/DeathZone.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/StarryParallax.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/fonts/Fibberish_16pt.tres" type="DynamicFont" id=7]
+[ext_resource path="res://scenes/ui/ControlTutorial.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Main.tres" type="TileSet" id=8]
 [ext_resource path="res://scenes/enemies/MeowKnight.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/props/MovingBluePlatform.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/easteregg.jpg" type="Texture" id=11]
+[ext_resource path="res://scenes/ui/BossCongrats.tscn" type="PackedScene" id=12]
 
 [node name="BlueLand" type="Node2D"]
 
@@ -93,6 +94,15 @@ position = Vector2( 3198, -51 )
 
 [node name="DeathZone18" parent="DeathZones" instance=ExtResource( 5 )]
 position = Vector2( 3378, -51 )
+
+[node name="DeathZone19" parent="DeathZones" instance=ExtResource( 5 )]
+position = Vector2( 3558, -51 )
+
+[node name="DeathZone20" parent="DeathZones" instance=ExtResource( 5 )]
+position = Vector2( 3738, -51 )
+
+[node name="DeathZone21" parent="DeathZones" instance=ExtResource( 5 )]
+position = Vector2( 3917, -51 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
@@ -188,16 +198,6 @@ position = Vector2( 2509, -684 )
 [node name="FizzDude9" parent="Enemies" instance=ExtResource( 4 )]
 position = Vector2( 1672, -441 )
 
-[node name="Label" type="Label" parent="."]
-margin_left = 581.0
-margin_top = -85.0
-margin_right = 717.0
-margin_bottom = -54.0
-custom_fonts/font = ExtResource( 7 )
-text = "Press Space on walls
-to wall jump."
-align = 1
-
 [node name="MovingBluePlatform" parent="." instance=ExtResource( 10 )]
 position = Vector2( 1524, -382 )
 
@@ -217,3 +217,17 @@ vertical_movement = true
 position = Vector2( 333, -1225 )
 scale = Vector2( 0.05, 0.05 )
 texture = ExtResource( 11 )
+
+[node name="BossCongrats" parent="." instance=ExtResource( 12 )]
+position = Vector2( 3459, -446 )
+
+[node name="ControlTutorial" parent="." instance=ExtResource( 7 )]
+position = Vector2( 643, 0 )
+tutorial_text = "Jump while touching a wall for a little extra boost!"
+tutorial_type = "walljump"
+
+[node name="ExitDoor" parent="." instance=ExtResource( 1 )]
+position = Vector2( 3609, -372 )
+door_color = "black"
+interact_text = "World Selection"
+next_scene = 2
