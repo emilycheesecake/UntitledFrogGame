@@ -1,6 +1,5 @@
 extends Node2D
 
-
 export var move_distance = 50
 export var speed = 10
 export var vertical_movement = false

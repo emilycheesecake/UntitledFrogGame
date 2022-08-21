@@ -58,14 +58,6 @@ func _ready():
 			$Banner.texture = purple_banner_tex
 		"green":
 			$Banner.texture = green_banner_tex
-			
-	match(global.input_type):
-		"keyboard":
-			$ButtonPrompt.texture = global.keyboard_interact
-		"xbox":
-			$ButtonPrompt.texture = global.xbox_interact
-		"ps":
-			$ButtonPrompt.texture = global.ps_interact
 
 func _input(event):
 	if event.is_action_pressed("interact") and $Label.visible:

@@ -1,13 +1,13 @@
 extends Area2D
 
-
 var player
 
-export var tutorial_text = "Default Control Tutorial Text - change me!"
+export(String, MULTILINE) var tutorial_text = "Press    \nto do [thing]"
 export var tutorial_type = "default"
 
 func _ready():
 	$Label.text = tutorial_text
+	$ButtonPrompt.change_type(tutorial_type)
 
 func _input(event):
 	if player != null:

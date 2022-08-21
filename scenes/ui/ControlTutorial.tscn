@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/fonts/Fibberish_16pt.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/ui/ControlTutorial.gd" type="Script" id=2]
+[ext_resource path="res://scenes/ui/ButtonPrompt.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 68.1175
@@ -18,14 +19,18 @@ margin_top = -90.0
 margin_right = 94.0
 margin_bottom = -31.0
 custom_fonts/font = ExtResource( 1 )
-text = "Default Control Tutorial Text
-change me!"
+text = "Press [key]
+to do [thing]"
 align = 1
 valign = 1
 autowrap = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="ButtonPrompt" parent="." instance=ExtResource( 3 )]
+position = Vector2( 20, -71 )
+scale = Vector2( 1.5, 1.5 )
 
 [connection signal="body_entered" from="." to="." method="_on_ControlTutorial_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

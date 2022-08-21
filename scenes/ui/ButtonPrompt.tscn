@@ -1,14 +1,140 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://assets/prompts/ps/interact.png" type="Texture" id=1]
+[ext_resource path="res://assets/prompts/xbox/interact.png" type="Texture" id=3]
+[ext_resource path="res://assets/prompts/keyboard/jump.png" type="Texture" id=4]
+[ext_resource path="res://assets/prompts/keyboard/attack.png" type="Texture" id=5]
+[ext_resource path="res://assets/prompts/ps/attack.png" type="Texture" id=6]
+[ext_resource path="res://assets/prompts/xbox/jump.png" type="Texture" id=7]
+[ext_resource path="res://assets/prompts/xbox/attack.png" type="Texture" id=8]
+[ext_resource path="res://assets/prompts/ps/jump.png" type="Texture" id=9]
+[ext_resource path="res://scripts/ui/ButtonPrompt.gd" type="Script" id=10]
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 9, 12 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 9, 0, 9, 12 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 11, 11 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 11, 0, 11, 11 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 9, 7 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 9, 0, 9, 7 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 9 )
+region = Rect2( 11, 0, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 11, 11 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 11, 0, 11, 11 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 6 )
+region = Rect2( 11, 0, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 11, 11 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 5 )
+region = Rect2( 11, 0, 11, 11 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 7 )
+region = Rect2( 11, 0, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 8 )
+region = Rect2( 11, 0, 11, 12 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [  ],
+"frames": [ SubResource( 20 ), SubResource( 21 ) ],
 "loop": true,
-"name": "default",
-"speed": 5.0
+"name": "ps_interact",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "keyboard_interact",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ) ],
+"loop": true,
+"name": "xbox_interact",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "ps_jump",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "keyboard_jump",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "ps_attack",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "keyboard_attack",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "xbox_jump",
+"speed": 1.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "xbox_attack",
+"speed": 1.0
 } ]
 
 [node name="ButtonPrompt" type="Node2D"]
+script = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
+animation = "keyboard_attack"
+frame = 1
+playing = true

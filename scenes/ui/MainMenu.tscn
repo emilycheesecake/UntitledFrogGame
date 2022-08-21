@@ -29,12 +29,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 2.5, 5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -20 ), Vector2( 0, -40 ), Vector2( 0, -20 ) ]
+"values": [ Vector2( 0, -10 ), Vector2( 0, -30 ), Vector2( 0, -10 ) ]
 }
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 4 )
-initial_scene = 3
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -54,9 +53,9 @@ margin_right = 479.0
 margin_bottom = 382.0
 
 [node name="TextureRect2" type="TextureRect" parent="CenterContainer/VBoxContainer"]
-margin_top = -21.454
+margin_top = -13.7559
 margin_right = 446.0
-margin_bottom = 186.546
+margin_bottom = 194.244
 texture = ExtResource( 3 )
 
 [node name="Main" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
@@ -81,9 +80,9 @@ flat = true
 
 [node name="Settings" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
 visible = false
-margin_top = 331.0
+margin_top = 212.0
 margin_right = 446.0
-margin_bottom = 453.0
+margin_bottom = 410.0
 
 [node name="Scanline" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Settings"]
 margin_right = 446.0
@@ -91,9 +90,9 @@ margin_bottom = 40.0
 alignment = 1
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Settings/Scanline"]
-margin_left = 78.0
+margin_left = 106.0
 margin_top = 6.0
-margin_right = 288.0
+margin_right = 260.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 1 )
 text = "LCD Shader:"
@@ -101,8 +100,8 @@ align = 1
 valign = 1
 
 [node name="CheckButton" type="CheckButton" parent="CenterContainer/VBoxContainer/Settings/Scanline"]
-margin_left = 292.0
-margin_right = 368.0
+margin_left = 264.0
+margin_right = 340.0
 margin_bottom = 40.0
 
 [node name="Music" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Settings"]
@@ -126,10 +125,43 @@ margin_left = 225.0
 margin_right = 301.0
 margin_bottom = 40.0
 
-[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer/Settings"]
+[node name="Input" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Settings"]
 margin_top = 88.0
 margin_right = 446.0
 margin_bottom = 122.0
+alignment = 1
+
+[node name="InputButton" type="Button" parent="CenterContainer/VBoxContainer/Settings/Input"]
+margin_left = 141.0
+margin_right = 301.0
+margin_bottom = 34.0
+custom_colors/font_color_hover = Color( 1, 0.345098, 0.933333, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Input Type:"
+flat = true
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Settings/Input"]
+margin_left = 305.0
+margin_top = 3.0
+margin_right = 305.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 1 )
+align = 1
+valign = 1
+
+[node name="DeleteButton" type="Button" parent="CenterContainer/VBoxContainer/Settings"]
+margin_top = 126.0
+margin_right = 446.0
+margin_bottom = 160.0
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Delete Save"
+flat = true
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer/Settings"]
+margin_top = 164.0
+margin_right = 446.0
+margin_bottom = 198.0
 custom_fonts/font = ExtResource( 1 )
 text = "Back"
 flat = true
@@ -149,4 +181,6 @@ mouse_filter = 2
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Main/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="toggled" from="CenterContainer/VBoxContainer/Settings/Scanline/CheckButton" to="." method="_on_scanline_toggled"]
 [connection signal="toggled" from="CenterContainer/VBoxContainer/Settings/Music/CheckButton" to="." method="_on_music_toggled"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Settings/Input/InputButton" to="." method="_on_InputButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Settings/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Settings/BackButton" to="." method="_on_SettingsBackButton_pressed"]

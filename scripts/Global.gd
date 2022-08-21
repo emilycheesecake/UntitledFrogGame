@@ -1,5 +1,8 @@
 extends Node2D
 
+onready var game_node = get_node("/root/Game")
+onready var indicators = $UI/Indicators
+
 var in_game = false
 var paused = false
 var crt_shader = true
@@ -26,6 +29,9 @@ var keyboard_interact = preload("res://assets/prompts/keyboard/interact.png")
 var xbox_interact = preload("res://assets/prompts/xbox/interact.png")
 var ps_interact = preload("res://assets/prompts/ps/interact.png")
 
+var loaded = false
+var save_exists = false
+
 export(PackedScene) var main_menu
 export(PackedScene) var pause_menu
 export(PackedScene) var game_over_menu
@@ -39,6 +45,9 @@ export(PackedScene) var death_explosion
 
 
 func _ready():
+	var save = File.new()
+	if save.file_exists("user://froggy.save"):
+		save_exists = true
 	randomize()
 
 func _input(event):
@@ -55,6 +64,11 @@ func _input(event):
 			$UI.add_child_below_node($UI/GameUI, i)
 		paused = !paused
 
+	if event.is_action_pressed("save"):
+		save_game()
+	if event.is_action_pressed("load"):
+		load_game()
+
 func _process(delta):
 	pass
 
@@ -67,8 +81,8 @@ func apply_settings():
 		$AudioStreamPlayer.stop()
 
 func clear_scene():
-	for n in $Game.get_children():
-		$Game.remove_child(n)
+	for n in game_node.get_children():
+		game_node.remove_child(n)
 		n.queue_free()
 
 func change_scene(scene):
@@ -82,7 +96,7 @@ func change_scene(scene):
 		
 	clear_scene()
 	var i # The new level instance
-	match(scene):
+	match scene:
 		0: # Main Menu
 			i = main_menu.instance()
 			player.queue_free()
@@ -103,6 +117,8 @@ func change_scene(scene):
 		5: #Green Land
 			i = green_land.instance()
 			$AudioStreamPlayer.stream = null
+		_: #Default
+			i = main_level.instance()
 	
 	# Music
 	if music:
@@ -114,9 +130,10 @@ func change_scene(scene):
 	if exit_spawn != Vector2.ZERO:
 		player.position = exit_spawn
 		exit_spawn = Vector2.ZERO
-	elif scene != 0: # Update player spawn location as long as it's not the main menu
-		player.position = i.get_node("SpawnLocation").position
+	elif scene != 0: # Update level spawn location as long as it's not the main menu
 		level_spawn = i.get_node("SpawnLocation").position
+		if not loaded: # Only use level spawn if not loading a save
+			player.position = level_spawn
 	
 	# Updating camera bounds
 	if i.get_node_or_null("CameraCeiling"):
@@ -132,13 +149,15 @@ func change_scene(scene):
 	
 	current_level = scene
 	# Adding new level scene
-	$Game.add_child(i)
+	game_node.add_child(i)
 	transition_in()
+
+	if loaded:
+		loaded = false
 
 func spawn_player():
 	# Instancing the player and adding as child of Global
 	var i = player_scene.instance()
-	i.position = i.start_position
 	add_child(i)
 	player = get_node("/root/Global/Player")
 	show_ui()
@@ -154,6 +173,10 @@ func update_health(health):
 
 func update_score(score):
 	player.score += score
+	$UI/GameUI/ScoreLabel.text = "%08d" % [player.score]
+
+func change_score(score):
+	player.score = score
 	$UI/GameUI/ScoreLabel.text = "%08d" % [player.score]
 	
 func update_life(life):
@@ -187,3 +210,83 @@ func set_boss_health_visibility(v):
 
 func set_boss_name(name):
 	$UI/GameUI/BossLabel.text = name
+
+func save():
+	var save_dict = {
+		"current_level" : current_level,
+		"crt_shader"    : crt_shader,
+		"music"         : music,
+		"input_type"    : input_type,
+		"unlocked_grape": unlocked_grape,
+		"unlocked_melon": unlocked_melon,
+	}
+	return save_dict
+
+func save_player():
+	var save_dict = {
+		"pos_x"    : player.position.x,
+		"pos_y"    : player.position.y,
+		"score"    : player.score,
+		"lives"    : player.lives,
+		"health"   : player.health
+	}
+	return save_dict
+
+func save_game():
+	var save = File.new()
+	save.open("user://froggy.save", File.WRITE)
+	
+	var node_data = save()
+	var player_data = save_player()
+	save.store_line(to_json(node_data))
+	save.store_line(to_json(player_data))
+	save.close()
+	$UI/SaveNotification.notify()
+
+func load_game():
+	paused = true
+	var loaded_player_position = Vector2.ZERO
+	var save = File.new()
+	if not save.file_exists("user://froggy.save"):
+		return
+
+	save.open("user://froggy.save", File.READ)
+	var l = 1
+	while save.get_position() < save.get_len():
+		var node_data = parse_json(save.get_line())
+
+		for i in node_data.keys():
+			if l == 2:
+				if i == "pos_x" or i == "pos_y":
+					continue
+				player.set(i, node_data[i])
+			if l == 1:
+				set(i, node_data[i])
+		
+		if l == 2:
+			loaded_player_position = Vector2(node_data["pos_x"], node_data["pos_y"])
+
+		l += 1
+	save.close()
+	loaded = true
+	# Needed to cast current_level to an integer for change_scene
+	# to work? Not sure why.
+	change_scene(int(current_level))
+	yield(get_tree().create_timer(1.0), "timeout")
+	player.position = loaded_player_position
+	change_score(player.score)
+	update_health(player.health)
+	update_life(player.lives)
+	paused = false
+
+func delete_save():
+	var save = File.new()
+	var dir = Directory.new()
+
+	if save.file_exists("user://froggy.save"):
+		dir.remove("user://froggy.save")
+		print("Save Deleted.")
+	else:
+		print("No Save to Delete.")
+
+

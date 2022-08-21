@@ -40,7 +40,7 @@ tracks/1/keys = {
 animation = "intro"
 
 [sub_resource type="AnimationNodeBlendTree" id=3]
-graph_offset = Vector2( -46, 88 )
+graph_offset = Vector2( -141, 65 )
 nodes/Animation/node = SubResource( 2 )
 nodes/Animation/position = Vector2( 99, 151 )
 node_connections = [ "output", 0, "Animation" ]
@@ -78,3 +78,8 @@ anims/intro = SubResource( 1 )
 tree_root = SubResource( 3 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

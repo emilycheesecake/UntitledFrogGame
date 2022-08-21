@@ -6,7 +6,7 @@ var velocity = Vector2.ZERO
 export var flip = false
 export var gravity = 200.0
 export var speed = 20
-export var rolling_speed = 50
+export var rolling_speed = 40
 export var max_health = 15
 var dead = false
 export var can_attack = true
@@ -35,6 +35,12 @@ func _physics_process(delta):
 					$Sprite.flip_h = true
 			else:
 				velocity.x = speed if $Sprite.flip_h else -speed
+			
+			# Flip attack area
+			if $Sprite.flip_h:
+				$AttackArea.scale = Vector2(-1,1)
+			else:
+				$AttackArea.scale = Vector2(1,1)
 		
 		velocity.y += gravity * delta
 	

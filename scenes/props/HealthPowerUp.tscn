@@ -41,7 +41,7 @@ mode = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -0.525325 )
+position = Vector2( 0, -0.188798 )
 texture = ExtResource( 1 )
 hframes = 38
 vframes = 6

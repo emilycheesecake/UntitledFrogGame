@@ -1,10 +1,10 @@
 extends Node2D
 
-
 var death_sound = preload("res://assets/sounds/tinyexplode.wav")
+var explosion_scale = 1.0
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	scale = Vector2(explosion_scale, explosion_scale)
 	$AudioStreamPlayer.stream = death_sound
 	$AudioStreamPlayer.play()
 	$AnimatedSprite.play("default")

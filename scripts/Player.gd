@@ -57,17 +57,18 @@ func _physics_process(delta):
 				$Sprite.texture = normal_frog
 			else:
 				$Sprite.texture = tired_frog
-			# Gravity
-			velocity.y += delta * gravity
+			
 			# Player Movement
 			if Input.is_action_pressed("move_right"):
 				velocity.x = speed
 				$Sprite.flip_h = false
+				$Particles2D.position = Vector2(8,1)
 				if not is_jumping:
 					$AnimationTree.set("parameters/isWalking/current", 1)
 			elif Input.is_action_pressed("move_left"):
 				velocity.x = -speed
 				$Sprite.flip_h = true
+				$Particles2D.position = Vector2(-8,1)
 				if not is_jumping:
 					$AnimationTree.set("parameters/isWalking/current", 1)
 			else:
@@ -83,6 +84,15 @@ func _physics_process(delta):
 				if Input.is_action_pressed("jump"):
 					jump()
 			
+			if is_touching_wall() and velocity.y >= 0 and not is_on_floor() and wall_jump_energy:
+				# Reduced Gravity when touching wall before potential wall jump
+				velocity.y += delta * (gravity / 10)
+				$Particles2D.emitting = true
+			else:
+				# Normal Gravity
+				velocity.y += delta * gravity
+				$Particles2D.emitting = false
+
 			if is_on_floor():
 				can_wall_jump = false
 				# Charge jump when held
@@ -168,6 +178,7 @@ func attack():
 		$Tongue.add_point($Sprite.position)
 		$Tongue.add_point($Tongue.to_local(closest_dude.position))
 		$TongueTimer.start()
+		closest_dude = null
 
 func spawn_attack_hitbox():
 	var i = attack_hitbox.instance()
@@ -221,7 +232,7 @@ func reset():
 	lives = 3
 	global.update_life(lives)
 	score = 0
-	global.update_score(score)
+	global.change_score(score)
 	health = max_health
 	global.update_health(health)
 

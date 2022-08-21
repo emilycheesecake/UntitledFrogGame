@@ -51,7 +51,7 @@ nodes/isDead/position = Vector2( 1440, 180 )
 nodes/isHit/node = SubResource( 11 )
 nodes/isHit/position = Vector2( 1060, 100 )
 nodes/output/position = Vector2( 1680, 100 )
-node_connections = [ "output", 0, "isDead", "isDead", 0, "isHit", "isDead", 1, "Animation 3", "isAttacking", 0, "Animation", "isAttacking", 1, "Animation 4", "isHit", 0, "isAttacking", "isHit", 1, "Animation 2" ]
+node_connections = [ "output", 0, "isDead", "isDead", 0, "isHit", "isDead", 1, "Animation 3", "isHit", 0, "isAttacking", "isHit", 1, "Animation 2", "isAttacking", 0, "Animation", "isAttacking", 1, "Animation 4" ]
 
 [sub_resource type="Animation" id=19]
 resource_name = "attack"
@@ -199,20 +199,19 @@ extents = Vector2( 7, 8 )
 
 [sub_resource type="RectangleShape2D" id=12]
 
-[sub_resource type="CircleShape2D" id=18]
-radius = 46.0109
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 29.5, 10 )
 
 [node name="BottleCapDude" type="KinematicBody2D"]
 z_index = 2
 collision_layer = 4
-collision_mask = 3
+collision_mask = 7
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 7 )
 texture = ExtResource( 3 )
 hframes = 11
-frame = 3
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 2 )
@@ -244,7 +243,8 @@ shape = SubResource( 12 )
 [node name="AttackArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource( 18 )
+position = Vector2( -19.5, 0 )
+shape = SubResource( 21 )
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 5.0

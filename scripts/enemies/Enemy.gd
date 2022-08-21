@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 onready var global = get_node("/root/Global")
+onready var game = get_node("/root/Game")
 
 var point_value = 100
 var health = 15
@@ -19,7 +20,7 @@ func try_powerup():
 func drop_health_pickup():
 	var i = health_pickup.instance()
 	i.position = position
-	global.get_node("Game").add_child(i)
+	game.add_child(i)
 
 func set_health(max_health):
 	health = max_health

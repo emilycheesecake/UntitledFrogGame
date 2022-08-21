@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+onready var global = get_node("/root/Global")
+
 export var health_amount = 1
 export var gravity = 100
 
@@ -30,9 +32,11 @@ func _physics_process(delta):
 func _on_Area2D_body_entered(body):
 	if "Player" in body.name:
 		if body.health < body.max_health: # Only pickup if player needs it
-			$AudioStreamPlayer.stream = pickup_sound
-			$AudioStreamPlayer.play()
-			$Sprite.visible = false
 			body.update_health(health_amount)
-			yield($AudioStreamPlayer, "finished")
-			queue_free()
+		else:
+			global.update_score(200)
+		$AudioStreamPlayer.stream = pickup_sound
+		$AudioStreamPlayer.play()
+		$Sprite.visible = false
+		yield($AudioStreamPlayer, "finished")
+		queue_free()
