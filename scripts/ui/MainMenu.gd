@@ -47,6 +47,7 @@ func _on_music_toggled(button_pressed):
 
 func _on_DeleteButton_pressed():
 	global.delete_save()
+	$CenterContainer/VBoxContainer/Main/StartButton.text = "Start Game"
 
 
 func _on_InputButton_pressed():

@@ -36,7 +36,7 @@ func shoot(target):
 		var i = grape_bullet.instance()
 		i.target = target
 		i.position = position
-		global.get_node("Game").add_child(i)
+		get_tree().get_root().get_node("Game").add_child(i)
 		$CooldownTimer.start()
 
 func hide_smoke():

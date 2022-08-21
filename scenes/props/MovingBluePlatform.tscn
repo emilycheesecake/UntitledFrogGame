@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Main.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/props/MovingPlatform.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 39.8555, 9.48856 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 57, 19 )
 
 [node name="MovingBluePlatform" type="Node2D"]
 script = ExtResource( 2 )
@@ -29,6 +32,14 @@ autostart = true
 position = Vector2( 39.8835, 6.34961 )
 shape = SubResource( 1 )
 
+[node name="IndicatorArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IndicatorArea"]
+position = Vector2( 40, 8 )
+shape = SubResource( 2 )
+
 [connection signal="timeout" from="StopTimer" to="." method="_on_StopTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="IndicatorArea" to="." method="_on_IndicatorArea_body_entered"]
+[connection signal="body_exited" from="IndicatorArea" to="." method="_on_IndicatorArea_body_exited"]

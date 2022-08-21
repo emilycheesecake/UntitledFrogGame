@@ -289,4 +289,13 @@ func delete_save():
 	else:
 		print("No Save to Delete.")
 
-
+func update_indicator(i, state):
+	match i:
+		"up":
+			$UI/Indicators/UpIndicator.visible = state
+		"left":
+			$UI/Indicators/LeftIndicator.visible = state
+		"right":
+			$UI/Indicators/RightIndicator.visible = state
+		"down":
+			$UI/Indicators/DownIndicator.visible = state

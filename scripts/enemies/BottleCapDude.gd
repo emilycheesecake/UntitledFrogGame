@@ -61,13 +61,11 @@ func _on_Hitbox_area_entered(area):
 
 func _on_AttackArea_body_entered(body):
 	if "Player" in body.name and can_attack:
-		print("FUCKING ATTACK")
 		$AnimationTree.set("parameters/isAttacking/active", true)
 		is_attacking = true
 		$AttackTimer.start()
 
 func _on_AttackTimer_timeout():
-	print("FUCKING RESET")
 	can_attack = true
 	$AttackTimer.stop()
 
