@@ -33,14 +33,14 @@ exit_spawn = Vector2( 265, -45 )
 position = Vector2( 408, -100 )
 door_color = "green"
 banner_color = "green"
-interact_text = "Melon Kingdom"
+interact_text = "Meloncholy"
 next_scene = 5
 
 [node name="PurpleDoor" parent="." instance=ExtResource( 1 )]
 position = Vector2( 280, -124 )
 door_color = "purple"
 banner_color = "purple"
-interact_text = "Grape Kingdom"
+interact_text = "Grape Galaxy"
 next_scene = 4
 
 [node name="SpawnLocation" type="Node2D" parent="."]
@@ -48,7 +48,7 @@ position = Vector2( 56, -13 )
 
 [node name="BlueDoor" parent="." instance=ExtResource( 1 )]
 position = Vector2( 39, -140 )
-interact_text = "Icy Kingdom"
+interact_text = "Icy Island"
 next_scene = 3
 
 [node name="CameraCeiling" type="Node2D" parent="."]
@@ -58,4 +58,4 @@ position = Vector2( 256, -256 )
 position = Vector2( 0, 64 )
 
 [node name="Checkpoint" parent="." instance=ExtResource( 3 )]
-position = Vector2( 34, -27 )
+position = Vector2( 35, -32 )

@@ -16,6 +16,7 @@ var level_spawn = Vector2.ZERO
 
 var unlocked_grape = false
 var unlocked_melon = false
+var beat_game = false
 
 # Music
 var main_menu_music = preload("res://assets/music/MainMenu.wav")
@@ -40,6 +41,7 @@ export(PackedScene) var selection_level
 export(PackedScene) var blue_land
 export(PackedScene) var purple_land
 export(PackedScene) var green_land
+export(PackedScene) var credits
 export(PackedScene) var player_scene
 export(PackedScene) var death_explosion
 
@@ -117,6 +119,9 @@ func change_scene(scene):
 		5: #Green Land
 			i = green_land.instance()
 			$AudioStreamPlayer.stream = null
+		6: # Credits
+			i = credits.instance()
+			$AudioStreamPlayer.stream = null
 		_: #Default
 			i = main_level.instance()
 	
@@ -130,7 +135,7 @@ func change_scene(scene):
 	if exit_spawn != Vector2.ZERO:
 		player.position = exit_spawn
 		exit_spawn = Vector2.ZERO
-	elif scene != 0: # Update level spawn location as long as it's not the main menu
+	elif scene != 0 and scene != 6: # Update level spawn location as long as it's not the main menu or credits
 		level_spawn = i.get_node("SpawnLocation").position
 		if not loaded: # Only use level spawn if not loading a save
 			player.position = level_spawn

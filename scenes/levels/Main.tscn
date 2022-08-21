@@ -12,7 +12,7 @@
 [ext_resource path="res://scenes/ui/ControlTutorial.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 32.3883
+radius = 60.075
 
 [node name="Main" type="Node2D"]
 

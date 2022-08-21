@@ -1,0 +1,280 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fonts/Fibberish_32pt.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/ui/Ending.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "credits"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/CenterCredits/Credits:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 100, 600 ), Vector2( 100, -500 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 14.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "return_to_menu"
+} ]
+}
+
+[node name="Ending" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 1.0
+color = Color( 0.878431, 0.423529, 0.623529, 1 )
+
+[node name="CenterCredits" type="CenterContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Credits" type="VBoxContainer" parent="CanvasLayer/CenterCredits"]
+margin_left = 100.0
+margin_top = 600.0
+margin_right = 412.0
+margin_bottom = 1423.0
+
+[node name="Creds" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_right = 312.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 1 )
+text = "Credits
+
+"
+align = 1
+valign = 1
+
+[node name="Emily" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 94.0
+margin_right = 312.0
+margin_bottom = 153.0
+custom_fonts/font = ExtResource( 1 )
+text = "Emily (@emilyydotgames)
+"
+align = 1
+valign = 1
+
+[node name="Asset Artists" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 157.0
+margin_right = 312.0
+margin_bottom = 216.0
+custom_fonts/font = ExtResource( 1 )
+text = "Asset Artists
+"
+align = 1
+valign = 1
+
+[node name="Credit" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 220.0
+margin_right = 312.0
+margin_bottom = 248.0
+custom_fonts/font = ExtResource( 1 )
+text = "Balloon Cart"
+align = 1
+valign = 1
+
+[node name="Credit2" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 252.0
+margin_right = 312.0
+margin_bottom = 280.0
+custom_fonts/font = ExtResource( 1 )
+text = "FoxSynergy"
+align = 1
+valign = 1
+
+[node name="Credit3" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 284.0
+margin_right = 312.0
+margin_bottom = 312.0
+custom_fonts/font = ExtResource( 1 )
+text = "Jonathan So"
+align = 1
+valign = 1
+
+[node name="Credit4" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 316.0
+margin_right = 312.0
+margin_bottom = 344.0
+custom_fonts/font = ExtResource( 1 )
+text = "bart"
+align = 1
+valign = 1
+
+[node name="Credit5" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 348.0
+margin_right = 312.0
+margin_bottom = 376.0
+custom_fonts/font = ExtResource( 1 )
+text = "PlayOnLoop"
+align = 1
+valign = 1
+
+[node name="Credit6" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 380.0
+margin_right = 312.0
+margin_bottom = 408.0
+custom_fonts/font = ExtResource( 1 )
+text = "Gumichan01"
+align = 1
+valign = 1
+
+[node name="Credit7" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 412.0
+margin_right = 312.0
+margin_bottom = 440.0
+custom_fonts/font = ExtResource( 1 )
+text = "OwlishMedia"
+align = 1
+valign = 1
+
+[node name="Credit8" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 444.0
+margin_right = 312.0
+margin_bottom = 472.0
+custom_fonts/font = ExtResource( 1 )
+text = "SciGho"
+align = 1
+valign = 1
+
+[node name="Credit9" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 476.0
+margin_right = 312.0
+margin_bottom = 504.0
+custom_fonts/font = ExtResource( 1 )
+text = "LukasLundin"
+align = 1
+valign = 1
+
+[node name="Credit10" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 508.0
+margin_right = 312.0
+margin_bottom = 536.0
+custom_fonts/font = ExtResource( 1 )
+text = "Retrocade Media"
+align = 1
+valign = 1
+
+[node name="Credit11" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 540.0
+margin_right = 312.0
+margin_bottom = 568.0
+custom_fonts/font = ExtResource( 1 )
+text = "nathan scott"
+align = 1
+valign = 1
+
+[node name="Credit12" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 572.0
+margin_right = 312.0
+margin_bottom = 600.0
+custom_fonts/font = ExtResource( 1 )
+text = "untiedgames"
+align = 1
+valign = 1
+
+[node name="Credit13" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 604.0
+margin_right = 312.0
+margin_bottom = 632.0
+custom_fonts/font = ExtResource( 1 )
+text = "9e0"
+align = 1
+valign = 1
+
+[node name="Credit14" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 636.0
+margin_right = 312.0
+margin_bottom = 664.0
+custom_fonts/font = ExtResource( 1 )
+text = "Enjl"
+align = 1
+valign = 1
+
+[node name="Credit15" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 668.0
+margin_right = 312.0
+margin_bottom = 696.0
+custom_fonts/font = ExtResource( 1 )
+text = "edmoton"
+align = 1
+valign = 1
+
+[node name="Credit16" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 700.0
+margin_right = 312.0
+margin_bottom = 759.0
+custom_fonts/font = ExtResource( 1 )
+text = "Soully
+"
+align = 1
+valign = 1
+
+[node name="Other" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 763.0
+margin_right = 312.0
+margin_bottom = 791.0
+custom_fonts/font = ExtResource( 1 )
+text = "You are loved <3"
+align = 1
+valign = 1
+
+[node name="Thanks" type="Label" parent="CanvasLayer/CenterCredits/Credits"]
+margin_top = 795.0
+margin_right = 312.0
+margin_bottom = 823.0
+custom_fonts/font = ExtResource( 1 )
+text = "Thanks for playing!"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -247.0
+color = Color( 0.878431, 0.423529, 0.623529, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_bottom = 231.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+margin_left = 174.0
+margin_top = 85.0
+margin_right = 338.0
+margin_bottom = 145.0
+
+[node name="Score" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+margin_right = 164.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 1 )
+text = "Score: 69420"
+
+[node name="Time" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+margin_top = 32.0
+margin_right = 164.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 1 )
+text = "Time: 05'02.4"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/credits = SubResource( 1 )

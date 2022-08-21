@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/props/Checkpoint.gd" type="Script" id=1]
-[ext_resource path="res://assets/Grape_Bullet.png" type="Texture" id=2]
+[ext_resource path="res://assets/soda_healthbar/over.png" type="Texture" id=2]
 [ext_resource path="res://scenes/ui/ControlTutorial.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -17,11 +17,10 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 15.0
 
 [node name="SavePrompt" parent="." instance=ExtResource( 3 )]
-visible = false
-position = Vector2( 3, 15 )
+position = Vector2( -1, 34 )
 tutorial_text = "Press  
 to save"
 tutorial_type = "save"

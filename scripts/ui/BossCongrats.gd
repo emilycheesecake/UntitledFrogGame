@@ -13,6 +13,8 @@ func _ready():
 			$Label.text = "Grape Galaxy Unlocked!"
 		"melon":
 			$Label.text = "Melon Maze Unlocked!"
+		"end":
+			$Label.text = "Final Cat Defeated!"
 
 func _process(delta):
 	if boss != null:
@@ -23,6 +25,8 @@ func _process(delta):
 				global.unlocked_grape = true
 			if "melon" in world:
 				global.unlocked_melon = true
+			if "end" in world:
+				global.beat_game = true
 			global.save_game()
 			boss = null
 
