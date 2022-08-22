@@ -223,6 +223,7 @@ position = Vector2( 3434, -666 )
 [node name="ControlTutorial" parent="." instance=ExtResource( 7 )]
 position = Vector2( 643, 0 )
 tutorial_text = "Press  
+while touching a wall
 to wallhop!"
 tutorial_type = "walljump"
 

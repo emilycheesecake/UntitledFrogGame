@@ -3,6 +3,7 @@ extends Node2D
 onready var global = get_node("/root/Global")
 
 func _ready():
+	global.hide_ui()
 	$AnimationPlayer.play("credits")
 	$CanvasLayer/CenterContainer/VBoxContainer/Score.text = "Score: " + str(global.player.score)
 	global.player.queue_free()
