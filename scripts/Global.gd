@@ -11,7 +11,7 @@ var current_level = 1
 var player
 var exit_spawn = Vector2.ZERO
 var music_position
-var input_type = "keyboard"
+var input_type = "xbox"
 var level_spawn = Vector2.ZERO
 
 var unlocked_grape = false
@@ -71,7 +71,7 @@ func _input(event):
 	if event.is_action_pressed("load"):
 		load_game()
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func apply_settings():
@@ -173,6 +173,10 @@ func show_ui():
 func hide_ui():
 	$UI/GameUI.visible = false
 
+func get_game_ui():
+	var game_ui = $UI/GameUI
+	return game_ui
+
 func update_health(health):
 	$UI/GameUI/HealthBar.value = health
 
@@ -189,6 +193,19 @@ func update_life(life):
 
 func update_jump_strength(strength):
 	$UI/GameUI/JumpMeter.value = strength
+
+func update_collectibles_obtained():
+	$UI/GameUI/Collectibles.visible = true
+	$UI/GameUI/AnimationTree.set("parameters/collectibles_fade_in/active", true)
+	yield($UI/GameUI/AnimationPlayer, "animation_finished")
+	player.collectibles_obtained += 1
+	$UI/GameUI/AnimationTree.set("parameters/collectibles_collect/active", true)
+	yield($UI/GameUI/AnimationPlayer, "animation_finished")
+	$UI/GameUI/Collectibles/Label.text = "x%02d" % [player.collectibles_obtained]
+	#Play fade out
+	$UI/GameUI/AnimationTree.set("parameters/collectibles_fade_out/active", true)
+	yield($UI/GameUI/AnimationPlayer, "animation_finished")
+	$UI/GameUI/Collectibles.visible = false
 
 func transition_in():
 	$UI/CircleTransition.transition_in()

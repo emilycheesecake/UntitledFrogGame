@@ -29,7 +29,7 @@ autowrap = true
 shape = SubResource( 1 )
 
 [node name="ButtonPrompt" parent="." instance=ExtResource( 3 )]
-position = Vector2( 20, -71 )
+position = Vector2( 20, -75 )
 scale = Vector2( 1.5, 1.5 )
 
 [connection signal="body_entered" from="." to="." method="_on_ControlTutorial_body_entered"]

@@ -14,6 +14,7 @@ func _on_Banana_body_entered(body):
 		i.explosion_scale = 0.5
 		get_parent().add_child(i)
 		global.update_score(point_value)
+		global.get_node("UI/GameUI").update_collectibles_obtained()
 		$AnimationPlayer.play("collect")
 
 func die():

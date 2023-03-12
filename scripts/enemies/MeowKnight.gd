@@ -9,6 +9,7 @@ export var is_hit = false
 export var speed = 20
 export var gravity = 200.0
 export var max_health = 100
+export var boss_name = "ssssssss"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +18,7 @@ func _ready():
 	point_value = 1500
 	# Bigger boom for bigger boss
 	explosion_scale = 2.0
-	global.set_boss_name("Mr Mittens")
+	global.set_boss_name(boss_name)
 	initial_position = position
 	# Set health
 	set_health(max_health)

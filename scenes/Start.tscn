@@ -63,11 +63,11 @@ __meta__ = {
 [node name="Label" type="Label" parent="CenterContainer"]
 margin_left = 179.0
 margin_top = 226.0
-margin_right = 333.0
+margin_right = 345.0
 margin_bottom = 254.0
 custom_colors/font_color = Color( 0.686275, 0, 1, 1 )
 custom_fonts/font = ExtResource( 2 )
-text = "emilyy.games"
+text = "emilyrose.dev"
 align = 1
 valign = 1
 

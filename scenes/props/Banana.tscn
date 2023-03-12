@@ -64,7 +64,7 @@ material = ExtResource( 2 )
 texture = ExtResource( 1 )
 hframes = 38
 vframes = 6
-frame = 148
+frame = 121
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

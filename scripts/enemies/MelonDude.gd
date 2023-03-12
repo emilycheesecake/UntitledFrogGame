@@ -10,62 +10,75 @@ var initial_pos = Vector2.ZERO
 var target = Vector2.ZERO
 var returning = false
 
+export var dead = false
 export var falling_speed = 60
 export var move_speed = 30
 export var idle_distance = 60
 export var flipped_path = false
+export var max_health = 20
 
 func _ready():
+	# Set point value
+	point_value = 350
+	# Set health
+	set_health(max_health)
 	initial_pos = position
 	target = Vector2(position.x + idle_distance, position.y) if not flipped_path else Vector2(position.x - idle_distance, position.y)
 
 func _physics_process(delta):
-	if player != null and not is_falling:
-		if can_attack:
-			var r = randi() % 100 + 1
-			if r % 3 == 0: # This makes a one in three chance i think? i'm high
-				is_aiming = true
-			else:
-				can_attack = false
-				$AttemptTimer.start()
+	if not global.paused:
+		if $AnimationTree.process_mode == AnimationTree.ANIMATION_PROCESS_MANUAL:
+			$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_IDLE
+
+		if player != null and not is_falling and not dead:
+			if can_attack:
+				var r = randi() % 100 + 1
+				if r % 3 == 0: # This makes a one in three chance i think? i'm high
+					is_aiming = true
+				else:
+					can_attack = false
+					$AttemptTimer.start()
 		
-		if is_aiming:
-			if position.x < player.position.x:
-				$MelonSprite.flip_h = true
-				velocity.x = move_speed
-			if position.x > player.position.x:
-				$MelonSprite.flip_h = false
-				velocity.x = -move_speed
-			if abs(position.x - player.position.x) < 3:
-				attack()
-		else:
-			if not returning:
-				if position.x < target.x:
-					velocity.x = move_speed
-				if position.x > target.x:
-					velocity.x = -move_speed
-				if position.x == target.x:
-					returning = true
-					$MelonSprite.flip_h = false
-			else:
-				if position.x < initial_pos.x:
-					velocity.x = move_speed
-				if position.x > initial_pos.x:
-					velocity.x = -move_speed
-				if position.x == initial_pos.x:
-					returning = false
+			if is_aiming:
+				if position.x < player.position.x:
 					$MelonSprite.flip_h = true
+					velocity.x = move_speed
+				if position.x > player.position.x:
+					$MelonSprite.flip_h = false
+					velocity.x = -move_speed
+				if abs(position.x - player.position.x) < 3:
+					attack()
+			else:
+				if not returning:
+					if position.x < target.x:
+						velocity.x = move_speed
+					if position.x > target.x:
+						velocity.x = -move_speed
+					if position.x == target.x:
+						returning = true
+						$MelonSprite.flip_h = false
+				else:
+					if position.x < initial_pos.x:
+						velocity.x = move_speed
+					if position.x > initial_pos.x:
+						velocity.x = -move_speed
+					if position.x == initial_pos.x:
+						returning = false
+						$MelonSprite.flip_h = true
 
 
-	if is_falling:
-		velocity.x = 0
-		velocity.y = falling_speed
+		if is_falling:
+			velocity.x = 0
+			velocity.y = falling_speed
 
-	velocity = move_and_slide(velocity)
+		velocity = move_and_slide(velocity)
 
-	if is_falling and velocity.y < 40:
-		explode()
-		die()
+		if is_falling and velocity.y < 40:
+			explode()
+			die()
+	else:
+		$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_MANUAL
+	
 func aim():
 	is_aiming = true
 	if abs(position.x - player.position.x) < 10:

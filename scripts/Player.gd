@@ -12,6 +12,9 @@ var start_position = Vector2(50, -50)
 var max_health = 6
 var invulnerable = false
 var score = 0
+var collectibles_obtained = 0
+
+# Sound variables
 var hop_sound = preload("res://assets/sounds/hop.wav")
 var jump_sound = preload("res://assets/sounds/jump.wav")
 var attack_sound = preload("res://assets/sounds/slap.wav")

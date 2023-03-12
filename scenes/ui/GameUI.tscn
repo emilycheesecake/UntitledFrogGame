@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/ui/JumpMeter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/Fibberish_32pt_noborder.tres" type="DynamicFont" id=2]
@@ -7,10 +7,158 @@
 [ext_resource path="res://assets/bosshealth_progress.png" type="Texture" id=5]
 [ext_resource path="res://assets/bosshealth_bg.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Fibberish_32pt.tres" type="DynamicFont" id=7]
+[ext_resource path="res://assets/Fruit.png" type="Texture" id=8]
+[ext_resource path="res://scripts/ui/GameUI.gd" type="Script" id=9]
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "collectibles_fade_in"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "collectibles_collect"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "default"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "collectibles_fade_out"
+
+[sub_resource type="AnimationNodeOneShot" id=10]
+
+[sub_resource type="AnimationNodeOneShot" id=1]
+
+[sub_resource type="AnimationNodeOneShot" id=2]
+
+[sub_resource type="AnimationNodeBlendTree" id=3]
+graph_offset = Vector2( -563.836, -67.7482 )
+nodes/Animation/node = SubResource( 9 )
+nodes/Animation/position = Vector2( 60, 320 )
+"nodes/Animation 2/node" = SubResource( 7 )
+"nodes/Animation 2/position" = Vector2( -500, 120 )
+"nodes/Animation 3/node" = SubResource( 8 )
+"nodes/Animation 3/position" = Vector2( -180, 200 )
+"nodes/Animation 4/node" = SubResource( 11 )
+"nodes/Animation 4/position" = Vector2( -437.865, -41.9427 )
+nodes/collectibles_collect/node = SubResource( 10 )
+nodes/collectibles_collect/position = Vector2( 120, 60 )
+nodes/collectibles_fade_in/node = SubResource( 1 )
+nodes/collectibles_fade_in/position = Vector2( -160, 0 )
+nodes/collectibles_fade_out/node = SubResource( 2 )
+nodes/collectibles_fade_out/position = Vector2( 380, 140 )
+nodes/output/position = Vector2( 680, 160 )
+node_connections = [ "output", 0, "collectibles_fade_out", "collectibles_fade_in", 0, "Animation 4", "collectibles_fade_in", 1, "Animation 2", "collectibles_collect", 0, "collectibles_fade_in", "collectibles_collect", 1, "Animation 3", "collectibles_fade_out", 0, "collectibles_collect", "collectibles_fade_out", 1, "Animation" ]
+
+[sub_resource type="Animation" id=4]
+resource_name = "collectibles_collect"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Collectibles/Label:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 449, 7 ), Vector2( 449, 2 ), Vector2( 449, 7 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "collectibles_fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Collectibles:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Collectibles/Label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Collectibles/Sprite:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "collectibles_fade_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Collectibles:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Collectibles/Label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Collectibles/Sprite:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Collectibles:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 9 )
 
 [node name="UI_Texture" type="TextureRect" parent="."]
 anchor_top = 1.0
@@ -84,3 +232,48 @@ margin_bottom = 42.0
 value = 100.0
 texture_under = ExtResource( 6 )
 texture_progress = ExtResource( 5 )
+
+[node name="Collectibles" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Collectibles"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 449.0
+margin_top = 7.0
+margin_right = 507.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 7 )
+text = "x 00"
+align = 1
+valign = 1
+
+[node name="Sprite" type="Sprite" parent="Collectibles"]
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 427, 20 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+hframes = 38
+vframes = 6
+frame = 121
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 3 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/collectibles_collect/active = false
+parameters/collectibles_fade_in/active = false
+parameters/collectibles_fade_out/active = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/collectibles_collect = SubResource( 4 )
+anims/collectibles_fade_in = SubResource( 5 )
+anims/collectibles_fade_out = SubResource( 6 )
+anims/default = SubResource( 12 )
+
+[node name="CollectiblesTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="CollectiblesTimer" to="." method="_on_CollectiblesTimer_timeout"]

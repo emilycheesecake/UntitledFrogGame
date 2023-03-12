@@ -54,5 +54,5 @@ func _physics_process(delta):
 		$AnimationTree.process_mode = AnimationTree.ANIMATION_PROCESS_MANUAL
 
 func _on_Hitbox_body_entered(body):
-	if "Player" in body.name:
+	if body.name in "Player":
 		body.hurt()
